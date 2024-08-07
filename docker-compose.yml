@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16.3
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+  db_data:
+
+secrets:
+  POSTGRES_USER:
+    file: ./.env/POSTGRES_USER
+  POSTGRES_PASSWORD:
+    file: ./.env/POSTGRES_PASSWORD
+  
