@@ -28,6 +28,6 @@ jobs:
 
       - name: Build and push
         run: |
-          COMMIT_HASH=${{ github.sha }}
+          COMMIT_HASH=$(echo ${{ github.sha }} | cut -c1-7)
           docker build . -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
           docker push ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
