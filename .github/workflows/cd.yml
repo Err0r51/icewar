@@ -11,6 +11,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          
       - name: Azure login
         uses: azure/login@v2
         with:
@@ -20,8 +25,8 @@ jobs:
 
       - name: Azure Registry Login
         run: az acr login --name ${{ vars.ACR_REGISTRY }}
-        
+
       - name: Build and push
         run: |
-          docker build -f dockerfile -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:latest
+          docker build . -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:latest
           docker push ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:latest
