@@ -23,5 +23,5 @@ jobs:
         
       - name: Build and push
         run: |
-          docker build . -t ${{ vars.ACR_REGISTRY }}/crawler:latest
-          docker push ${{ vars.ACR_REGISTRY }}/crawler:latest
+          docker build -f dockerfile -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:latest
+          docker push ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:latest
