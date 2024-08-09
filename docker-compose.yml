@@ -9,6 +9,16 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  
+  crawler:
+    build: 
+      context: .
+      target: production
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
 
 volumes:
   db_data:
