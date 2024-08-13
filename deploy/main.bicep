@@ -11,12 +11,13 @@ param containerPort int = 80
 param postgresUser string
 @secure()
 param postgresPassword string
+param time string = utcNow()
 
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
 var storageAccountName = 'storage${uniqueString(resourceGroup().id)}'
 var fileShareName = 'dbdata'
 
-resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
+resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: logAnalyticsWorkspaceName
   location: location
   properties: {
@@ -27,7 +28,7 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03
   }
 }
 
-resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
+resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
   name: environment_name
   location: location
   properties: {
@@ -41,7 +42,20 @@ resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
   }
 }
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
+resource postgresMount 'Microsoft.App/managedEnvironments/storages@2024-03-01' = {
+  parent: environment
+  name: 'postgresmount'
+  properties: {
+    azureFile: {
+      accountName: storageAccountName
+      accessMode: 'ReadWrite'
+      accountKey: storageAccount.listKeys().keys[0].value
+      shareName: fileShareName
+    }
+  }
+}
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageAccountName
   location: location
   sku: {
@@ -53,12 +67,12 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-resource fileServices 'Microsoft.Storage/storageAccounts/fileServices@2021-04-01' = {
+resource fileServices 'Microsoft.Storage/storageAccounts/fileServices@2023-05-01' = {
   parent: storageAccount
   name: 'default'
 }
 
-resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2021-04-01' = {
+resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-05-01' = {
   parent: fileServices
   name: fileShareName
   properties: {
@@ -170,7 +184,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
           volumeMounts: [
             {
               volumeName: 'dbdatavolume'
-              mountPath: '/var/lib/postgresql/data'
+              mountPath: ' /var/lib/postgresql/foobar'
             }
           ]
         }
@@ -183,9 +197,9 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
         {
           name: 'dbdatavolume'
           storageType: 'AzureFile'
-          storageName: storageAccount.name
+          storageName: 'postgresmount'
         }
-      ]
+      ]  
     }
   }
 }
