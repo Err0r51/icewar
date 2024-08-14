@@ -33,6 +33,9 @@ resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
   name: environment_name
   location: location
   properties: {
+    vnetConfiguration: { 
+      internal: false
+     }
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
@@ -85,7 +88,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
 resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
   name: 'icecrawlercontainerapp'
   location: location
-  dependsOn: [ dbContainerApp]
+  dependsOn: [dbContainerApp]
   properties: {
     managedEnvironmentId: environment.id
     configuration: {
@@ -121,7 +124,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
           image: '${acrName}.azurecr.io/${containerImage}:${commitHash}'
           name: 'icecrawlercontainerapp'
           resources: {
-            cpu: '0.5'
+            cpu: json('0.5')
             memory: '1.0Gi'
           }
           env: [
@@ -150,8 +153,10 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
     managedEnvironmentId: environment.id
     configuration: {
       ingress: {
-        external: false
+        external: true
+        allowInsecure: false
         targetPort: 5432
+        exposedPort: 5432
         transport: 'TCP'
       }
       secrets: [
@@ -202,7 +207,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
           storageType: 'AzureFile'
           storageName: 'postgresmount'
         }
-      ]  
+      ]
     }
   }
 }
