@@ -29,12 +29,45 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09
   }
 }
 
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2024-01-01' = {
+  name:  'cucumbernet'
+  location: location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        '10.0.0.0/23'
+      ]
+    }
+    subnets: [
+      {
+        name: 'subnet1'
+        properties: {
+          // delegations: [
+          //   {
+          //     name: 'Microsoft.App/environments'
+          //     id: concat(resourceId('Microsoft.Network/virtualNetworks/subnets', 'cucumbernet', 'subnet1'), '/delegations/Microsoft.App/environments')
+          //     properties: {
+          //       serviceName: 'Microsoft.App/environments'
+          //     }
+          //     type: 'Microsoft.Network/virtualNetworks/subnets/delegations'
+          //   }
+          // ]
+          addressPrefix: '10.0.0.0/23'
+        }
+      }
+    ]
+  }
+}
+
+
 resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
   name: environment_name
   location: location
   properties: {
+    infrastructureResourceGroup: 'gurkeninfrastructure'
     vnetConfiguration: { 
       internal: false
+      infrastructureSubnetId: virtualNetwork.properties.subnets[0].id
      }
     appLogsConfiguration: {
       destination: 'log-analytics'
@@ -88,7 +121,7 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2023-0
 resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
   name: 'icecrawlercontainerapp'
   location: location
-  dependsOn: [dbContainerApp]
+  // dependsOn: [dbContainerApp]
   properties: {
     managedEnvironmentId: environment.id
     configuration: {
