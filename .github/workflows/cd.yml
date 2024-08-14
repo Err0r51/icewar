@@ -1,4 +1,4 @@
-name: Push to Azure Container Registry
+name: Push to Registry and Deploy
 on:
     push:
         branches:
@@ -8,6 +8,23 @@ permissions:
   id-token: write
   contents: read
 jobs:
+  update-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Apply all pending migrations to the database
+        run: npx prisma db push
+        env:
+          DATABASE_URL: ${{ secrets.DB_CONNECTION_STRING }}
+
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
@@ -31,3 +48,13 @@ jobs:
           COMMIT_HASH=$(echo ${{ github.sha }} | cut -c1-7)
           docker build . -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
           docker push ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
+
+      - name: Deploy bicep template
+        uses: azure/arm-deploy@v1
+        with:
+          scope: 'resourcegroup'
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: 'IceWar'
+          template: ./deploy/main.bicep
+          parameters: acrPassword=${{ secrets.AZURE_ACR_KEY }} commitHash=$(echo ${{ github.sha }} | cut -c1-7) postgresUser=${{ secrets.POSTGRES_USER }} postgresPassword=${{secrets.POSTGRES_PASSWORD}}
+

@@ -6,6 +6,7 @@ param acrUsername string = 'icewarregistry'
 param acrPassword string
 param containerImage string = 'crawler'
 param commitHash string
+param dbfqdn string = 'icecrawlercontainerapp.mangosand-6b3afca1.westeurope.azurecontainerapps.io'
 param containerPort int = 80
 @secure()
 param postgresUser string
@@ -42,6 +43,7 @@ resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
   }
 }
 
+@description('Mounts a file share to the postgres container')
 resource postgresMount 'Microsoft.App/managedEnvironments/storages@2024-03-01' = {
   parent: environment
   name: 'postgresmount'
@@ -125,7 +127,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
           env: [
             {
               name: 'DATABASE_URL'
-              value: 'postgres://${postgresUser}:${postgresPassword}@icedbcontainerapp:5432/postgres'
+              value: 'postgresql://${postgresUser}:${postgresPassword}@icedbcontainerapp:5432/postgres?schema=public'
             }
           ]
         }
@@ -148,8 +150,9 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
     managedEnvironmentId: environment.id
     configuration: {
       ingress: {
-        external: true
+        external: false
         targetPort: 5432
+        transport: 'TCP'
       }
       secrets: [
         {
@@ -168,7 +171,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
           image: 'postgres:16.3'
           name: 'icedbcontainerapp'
           resources: {
-            cpu: '0.5'
+            cpu: json('0.5')
             memory: '1.0Gi'
           }
           env: [
