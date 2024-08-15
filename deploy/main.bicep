@@ -163,7 +163,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
           env: [
             {
               name: 'DATABASE_URL'
-              value: 'postgresql://${postgresUser}:${postgresPassword}@icedbcontainerapp:5432/${postgresUser}?schema=public'
+              value: 'postgresql://${postgresUser}:${postgresPassword}@${dbfqdn}/${postgresUser}?schema=public'
             }
           ]
         }
