@@ -6,7 +6,7 @@ param acrUsername string = 'icewarregistry'
 param acrPassword string
 param containerImage string = 'crawler'
 param commitHash string
-param dbfqdn string = 'icecrawlercontainerapp.mangosand-6b3afca1.westeurope.azurecontainerapps.io'
+param dbfqdn string = 'icedbcontainerapp.orangepebble-982f39a0.westeurope.azurecontainerapps.io:5432'
 param containerPort int = 80
 @secure()
 param postgresUser string
@@ -163,7 +163,7 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
           env: [
             {
               name: 'DATABASE_URL'
-              value: 'postgresql://${postgresUser}:${postgresPassword}@icedbcontainerapp:5432/postgres?schema=public'
+              value: 'postgresql://${postgresUser}:${postgresPassword}@icedbcontainerapp:5432/${postgresUser}?schema=public'
             }
           ]
         }
@@ -225,7 +225,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
           volumeMounts: [
             {
               volumeName: 'dbdatavolume'
-              mountPath: ' /var/lib/postgresql/foobar'
+              mountPath: ' /var/lib/postgresql/data'
             }
           ]
         }
@@ -236,6 +236,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
       }
       volumes: [
         {
+          mountOptions: 'uid=1000,gid=1000,nobrl,mfsymlinks,cache=none'
           name: 'dbdatavolume'
           storageType: 'AzureFile'
           storageName: 'postgresmount'
