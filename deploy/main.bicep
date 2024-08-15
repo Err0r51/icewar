@@ -16,7 +16,7 @@ param time string = utcNow()
 
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
 var storageAccountName = 'storage${uniqueString(resourceGroup().id)}'
-var fileShareName = 'dbdata'
+var fileShareName = 'dbdatavolume'
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: logAnalyticsWorkspaceName
