@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { env } from "node:process";
 import axios from "axios";
 import cheerio from 'cheerio';
 import type { Cheerio, CheerioAPI, Element } from "cheerio";
@@ -26,8 +25,6 @@ AxiosInstance.get("/").then((response) => {
 
         console.log(`Title: ${title}`);
         console.log(`Link: ${link}`);
-
-        console.log(env.process.DATABASE_URL);
 
         if (title && link) {
             writetodb({
