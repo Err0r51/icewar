@@ -17,6 +17,8 @@ param time string = utcNow()
 var logAnalyticsWorkspaceName = 'logs-${environment_name}'
 var storageAccountName = 'storage${uniqueString(resourceGroup().id)}'
 var fileShareName = 'dbdatavolume'
+var mountName = 'postgresmount'
+var environmentStorageName = 'postgresenvironmentstorage'
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: logAnalyticsWorkspaceName
@@ -82,7 +84,7 @@ resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
 @description('Mounts a file share to the postgres container')
 resource postgresMount 'Microsoft.App/managedEnvironments/storages@2024-03-01' = {
   parent: environment
-  name: fileShareName
+  name: environmentStorageName
   properties: {
     azureFile: {
       accountName: storageAccountName
@@ -224,7 +226,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
           ]
           volumeMounts: [
             {
-              volumeName: fileShareName
+              volumeName: mountName
               mountPath: ' /var/lib/postgresql/data'
             }
           ]
@@ -237,9 +239,9 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
       volumes: [
         {
           mountOptions: 'uid=1000,gid=1000,nobrl,mfsymlinks,cache=none'
-          name: fileShareName
+          name: mountName
           storageType: 'AzureFile'
-          storageName: storageAccountName
+          storageName: environmentStorageName
         }
       ]
     }
