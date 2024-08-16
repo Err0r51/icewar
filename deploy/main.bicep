@@ -230,10 +230,6 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
               volumeName: mountName
               mountPath: '/var/lib/postgresql/data'
             }
-            {
-              volumeName: mountName
-              mountPath:'/testmount'
-            }
           ]
         }
       ]

@@ -26,7 +26,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DB_CONNECTION_STRING }}
 
   build-and-deploy:
-    # needs: update-db
+    needs: update-db
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
