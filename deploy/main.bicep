@@ -237,9 +237,9 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
       volumes: [
         {
           mountOptions: 'uid=1000,gid=1000,nobrl,mfsymlinks,cache=none'
-          name: 'dbdatavolume'
+          name: fileShareName
           storageType: 'AzureFile'
-          storageName: 'postgresmount'
+          storageName: storageAccountName
         }
       ]
     }
