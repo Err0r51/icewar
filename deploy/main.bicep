@@ -183,6 +183,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
   location: location
   dependsOn: [
     fileShare
+    postgresMount
   ]
   properties: {
     managedEnvironmentId: environment.id
