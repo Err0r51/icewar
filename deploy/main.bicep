@@ -82,7 +82,7 @@ resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
 @description('Mounts a file share to the postgres container')
 resource postgresMount 'Microsoft.App/managedEnvironments/storages@2024-03-01' = {
   parent: environment
-  name: 'postgresmount'
+  name: fileShareName
   properties: {
     azureFile: {
       accountName: storageAccountName
@@ -224,7 +224,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
           ]
           volumeMounts: [
             {
-              volumeName: 'dbdatavolume'
+              volumeName: fileShareName
               mountPath: ' /var/lib/postgresql/data'
             }
           ]
