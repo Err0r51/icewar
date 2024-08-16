@@ -8,25 +8,25 @@ permissions:
   id-token: write
   contents: read
 jobs:
-  update-db:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+  # update-db:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
 
-      - name: Install dependencies
-        run: npm install
+  #     - name: Install dependencies
+  #       run: npm install
 
-      - name: Apply all pending migrations to the database
-        run: npx prisma db push
-        env:
-          DATABASE_URL: ${{ secrets.DB_CONNECTION_STRING }}
+  #     - name: Apply all pending migrations to the database
+  #       run: npx prisma db push
+  #       env:
+  #         DATABASE_URL: ${{ secrets.DB_CONNECTION_STRING }}
 
   build-and-deploy:
-    needs: update-db
+    # needs: update-db
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
