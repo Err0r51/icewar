@@ -1,61 +1,61 @@
-# name: Push to Registry and Deploy
-# on:
-#     push:
-#         branches:
-#         - main
+name: Push to Registry and Deploy
+on:
+    push:
+        branches:
+        - main
 
-# permissions:
-#   id-token: write
-#   contents: read
-# jobs:
-#   update-db:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout repo
-#         uses: actions/checkout@v4
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  update-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-#       - name: Setup Node
-#         uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
 
-#       - name: Install dependencies
-#         run: npm install
+      - name: Install dependencies
+        run: npm install
 
-#       - name: Apply all pending migrations to the database
-#         run: npx prisma db push
-#         env:
-#           DATABASE_URL: ${{ secrets.DB_CONNECTION_STRING }}
+      - name: Apply all pending migrations to the database
+        run: npx prisma db push
+        env:
+          DATABASE_URL: ${{ secrets.DB_CONNECTION_STRING }}
 
-#   build-and-deploy:
-#     needs: update-db
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v4
-#         with:
-#           fetch-depth: 2
+  build-and-deploy:
+    needs: update-db
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
-#       - name: Azure login
-#         uses: azure/login@v2
-#         with:
-#           client-id: ${{ secrets.AZURE_CLIENT_ID }}
-#           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-#           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-#       - name: Azure Registry Login
-#         run: az acr login --name ${{ vars.ACR_REGISTRY }}
+      - name: Azure Registry Login
+        run: az acr login --name ${{ vars.ACR_REGISTRY }}
 
-#       - name: Build and push
-#         run: |
-#           COMMIT_HASH=$(echo ${{ github.sha }} | cut -c1-7)
-#           docker build . -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
-#           docker push ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
+      - name: Build and push
+        run: |
+          COMMIT_HASH=$(echo ${{ github.sha }} | cut -c1-7)
+          docker build . -t ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
+          docker push ${{ vars.ACR_REGISTRY }}.azurecr.io/crawler:${COMMIT_HASH}
 
-#       - name: Bicep deployment
-#         shell: pwsh
-#         run: |
-#           $commitHash = git rev-parse --short HEAD
-#           az deployment group create --resource-group IceWar --template-file .\deploy\main.bicep --parameters acrPassword=$env:AZURE_ACR_KEY commitHash=$commitHash postgresUser=$env:POSTGRES_USER postgresPassword=$env:POSTGRES_PASSWORD --name (New-Guid).Guid
-#         env:
-#           AZURE_ACR_KEY: ${{ secrets.AZURE_ACR_KEY }}
-#           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-#           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      - name: Bicep deployment
+        shell: pwsh
+        run: |
+          $commitHash = git rev-parse --short HEAD
+          az deployment group create --resource-group IceWar --template-file .\deploy\main.bicep --parameters acrPassword=$env:AZURE_ACR_KEY commitHash=$commitHash postgresUser=$env:POSTGRES_USER postgresPassword=$env:POSTGRES_PASSWORD --name (New-Guid).Guid
+        env:
+          AZURE_ACR_KEY: ${{ secrets.AZURE_ACR_KEY }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
