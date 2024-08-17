@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.24.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@tsconfig/node20": "^20.1.4",
     "@types/axios": "^0.9.36",
     "@types/cheerio": "^0.22.35",
