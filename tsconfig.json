@@ -4,7 +4,7 @@
     "target": "es2018",
     "lib": ["es2018", "dom"],
     "baseUrl": "./",
-    "rootDir": "./src",
+    "rootDir": ".",
     "module": "commonjs",
     "moduleResolution": "node",
     "paths": {
@@ -32,6 +32,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "include": ["./scraper/src/**/*.ts", "./scraper/src/**/*.tsx", "./frontend/src/**/*.ts", "./frontend/src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
