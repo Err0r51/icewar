@@ -1,18 +1,13 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "target": "es2018",
-    "lib": ["es2018", "dom"],
     "baseUrl": "./",
     "rootDir": ".",
-    "module": "commonjs",
-    "moduleResolution": "node",
     "paths": {
       "@/*": ["src/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "types": ["node"],
-    "strict": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
@@ -28,10 +23,8 @@
     "noUnusedParameters": true,
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
   },
-  "include": ["./scraper/src/**/*.ts", "./scraper/src/**/*.tsx", "./frontend/src/**/*.ts", "./frontend/src/**/*.tsx"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
