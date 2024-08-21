@@ -2,7 +2,7 @@ import antfu from '@antfu/eslint-config'
 
 export default antfu(
   {
-    files: ['front/**/*.ts', 'front/**/*.tsx'],
+    files: ['frontend/**/*.ts', 'frontend/**/*.tsx'],
     react: true,
   },
   {
