@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import axios from 'axios'
-import cheerio from 'cheerio'
+import * as cheerio from 'cheerio'
 import type { Cheerio, CheerioAPI, Element } from 'cheerio'
 import { PrismaClient } from '@prisma/client'
 import type { Post } from '@prisma/client'

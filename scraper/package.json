@@ -9,13 +9,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node dist/index.js",
-    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node --esm\" src/index.ts",
+    "dev": "nodemon --watch \"src/**/*.ts\" --exec \"tsx\" src/index.ts",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "eslint ./src/**/*.ts --fix",
     "build": "tsc"
   },
   "dependencies": {
-    "@prisma/client": "^5.18.0",
     "axios": "^1.7.3",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.4.5"
@@ -28,8 +27,8 @@
     "@types/node": "^22.1.0",
     "eslint": "^8.57.0",
     "nodemon": "^3.1.4",
-    "prisma": "^5.18.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.17.0",
     "typescript": "^5.5.4"
   }
 }

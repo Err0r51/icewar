@@ -1,3 +1,4 @@
 packages:
   - 'front'
   - 'scraper'
+  - 'prisma'
