@@ -1,9 +1,17 @@
+import PostList from "./components/PostList"
+import SearchBar from "./components/SearchBar"
 
 
 function App() {
 
   return (
-    <div ></div>
+    <div className="flex-auto items-center">
+         <h1>IceWar</h1>
+      <SearchBar />
+      <PostList Posts={[]} />
+    </div>
+
+
   )
 }
 
