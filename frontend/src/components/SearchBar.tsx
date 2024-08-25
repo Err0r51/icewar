@@ -1,8 +1,15 @@
-export default function SearchBar() {
+interface SearchBarProps {
+  onQueryChange: (query: string) => void
+}
+
+export default function SearchBar({ onQueryChange }: SearchBarProps) {
   return (
     <div>
-      <input type="text" placeholder="Search Articles" onChange={e => console.log(e.target.value)} />
-      <button type="button">Search</button>
+      <input
+        type="text"
+        placeholder="Search Articles"
+        onChange={e => onQueryChange(e.target.value)}
+      />
     </div>
   )
 }

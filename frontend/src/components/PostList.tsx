@@ -3,22 +3,23 @@ import type { Post } from '../types'
 export default function PostList({ Posts }: { Posts: Post[] }) {
   return (
     <div className="flex-auto items-center">
-      <div>
-        {Posts.map(({ id, title, Url }) => (
-          <div key={id}>
-            <h3>{title}</h3>
-            <PostObj url={Url} />
-          </div>
+      <ul>
+        {Posts.map(Post => (
+          <PostObj Post={Post} key={Post.id} />
         ))}
-      </div>
+      </ul>
     </div>
   )
 }
 
-function PostObj({ url }: { url: string }) {
+function PostObj({ Post }: { Post: Post }) {
   return (
-    <div>
-      <h3>{url}</h3>
-    </div>
+    <li>
+      <a href={Post.Url} target="_blank" rel="noreferrer">
+        <strong>
+          {Post.title}
+        </strong>
+      </a>
+    </li>
   )
 }

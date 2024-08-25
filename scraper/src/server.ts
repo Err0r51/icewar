@@ -2,6 +2,7 @@
 import dotenv from 'dotenv'
 import { PrismaClient } from '@prisma/client'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
+import cors from '@fastify/cors'
 
 dotenv.config()
 
@@ -10,32 +11,32 @@ const prisma = new PrismaClient()
 const PORT = process.env.PORT || 3000
 const TAKE = Number(process.env.TAKE) || 10
 
-
-
 async function webServer() {
   const app: FastifyInstance = Fastify({ logger: true })
+  
+  app.register(cors, {
+    // TODO: Update this to only allow the frontend URL
+    origin: '*', // Allow all origins
+  })
 
   app.get<{ Querystring: ISearchQueryString }>('/search', async (req: FastifyRequest<{ Querystring: ISearchQueryString }>, res: FastifyReply) => {
-    const { searchString, orderBy } = req.query
+    const { query, orderBy } = req.query
 
-    if (!searchString) {
-      return res.status(400).send({ error: 'searchString is required' })
-
+    if (!query) {
+      return res.status(400).send({ error: 'query is required' })
     }
 
     const or = {
       OR: [
-        { title: { contains: searchString } },
+        { title: { contains: query } },
       ],
     }
-
 
     const posts = await prisma.post.findMany({
       take: TAKE,
       where: {
         ...or,
       },
-      // curently not working
       orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
     })
 
@@ -52,7 +53,6 @@ async function webServer() {
       orderBy: { id: 'asc' },
     })
   
-    // Get the new cursor from the last post in the results
     const newCursor = posts.length > 0 ? posts[posts.length - 1]?.id : null
   
     res.send({ posts, cursor: newCursor })
@@ -69,7 +69,7 @@ async function webServer() {
 }
 
 interface ISearchQueryString {
-  searchString: string
+  query: string
   orderBy: 'title' | 'createdAt' | null
 }
 
