@@ -1,22 +1,24 @@
 /* eslint-disable no-console */
 import dotenv from 'dotenv'
-import { PrismaClient } from '@prisma/client'
+import { Post, PrismaClient } from '@prisma/client'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import cors from '@fastify/cors'
+
+import { FeedRequestQuery, ISearchQueryString } from './types.js'
 
 dotenv.config()
 
 const prisma = new PrismaClient()
 
 const PORT = process.env.PORT || 3000
-const TAKE = Number(process.env.TAKE) || 10
+const TAKE = Number(process.env.TAKE) || 5
 
 async function webServer() {
   const app: FastifyInstance = Fastify({ logger: true })
   
   app.register(cors, {
     // TODO: Update this to only allow the frontend URL
-    origin: '*', // Allow all origins
+    origin: '*',
   })
 
   app.get<{ Querystring: ISearchQueryString }>('/search', async (req: FastifyRequest<{ Querystring: ISearchQueryString }>, res: FastifyReply) => {
@@ -26,13 +28,14 @@ async function webServer() {
       return res.status(400).send({ error: 'query is required' })
     }
 
+     // TODO: make case insensitive
     const or = {
       OR: [
         { title: { contains: query } },
       ],
     }
 
-    const posts = await prisma.post.findMany({
+    const posts: Post[] = await prisma.post.findMany({
       take: TAKE,
       where: {
         ...or,
@@ -54,6 +57,8 @@ async function webServer() {
     })
   
     const newCursor = posts.length > 0 ? posts[posts.length - 1]?.id : null
+
+    console.log('cursor:', newCursor)
   
     res.send({ posts, cursor: newCursor })
   })
@@ -66,15 +71,6 @@ async function webServer() {
     app.log.error(err)
     process.exit(1)
   }
-}
-
-interface ISearchQueryString {
-  query: string
-  orderBy: 'title' | 'createdAt' | null
-}
-
-interface FeedRequestQuery {
-  cursor?: string;
 }
 
 export { webServer }
