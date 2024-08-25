@@ -1,48 +1,61 @@
 /* eslint-disable no-console */
 import dotenv from 'dotenv'
-import { PrismaClient, SortOrder } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 
 dotenv.config()
 
 const prisma = new PrismaClient()
-const process = require('node:process')
 
 const PORT = process.env.PORT || 3000
 const TAKE = Number(process.env.TAKE) || 10
 
-interface IFeedQueryString {
-  searchString: string | null
-  orderBy: SortOrder | null
-}
+
 
 async function webServer() {
   const app: FastifyInstance = Fastify({ logger: true })
 
-  app.get<{ Querystring: IFeedQueryString }>('/search', async (req: FastifyRequest<{ Querystring: IFeedQueryString }>, res: FastifyReply) => {
+  app.get<{ Querystring: ISearchQueryString }>('/search', async (req: FastifyRequest<{ Querystring: ISearchQueryString }>, res: FastifyReply) => {
     const { searchString, orderBy } = req.query
 
-    const or = searchString
-      ? {
-          OR: [
-            { title: { contains: searchString } },
-            { content: { contains: searchString } },
-          ],
-        }
-      : {}
+    if (!searchString) {
+      return res.status(400).send({ error: 'searchString is required' })
+
+    }
+
+    const or = {
+      OR: [
+        { title: { contains: searchString } },
+      ],
+    }
+
 
     const posts = await prisma.post.findMany({
       take: TAKE,
       where: {
-        published: true,
         ...or,
       },
-      orderBy: {
-        updatedAt: orderBy || undefined,
-      },
+      // curently not working
+      orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
     })
 
-    return posts
+    res.send(posts)
+  })
+
+  app.get('/feed', async (req: FastifyRequest<{ Querystring: FeedRequestQuery }>, res: FastifyReply) => {
+    const { cursor } = req.query
+  
+    const posts = await prisma.post.findMany({
+      take: TAKE,
+      skip: cursor ? 1 : 0, 
+      cursor: cursor ? { id: parseInt(cursor) } : undefined,
+      orderBy: { id: 'asc' },
+    })
+  
+    // Get the new cursor from the last post in the results
+    const newCursor = posts.length > 0 ? posts[posts.length - 1]?.id : null
+  
+    res.send({ posts, cursor: newCursor })
   })
 
   try {
@@ -55,5 +68,13 @@ async function webServer() {
   }
 }
 
-// Start the server
-webServer()
+interface ISearchQueryString {
+  searchString: string
+  orderBy: 'title' | 'createdAt' | null
+}
+
+interface FeedRequestQuery {
+  cursor?: string;
+}
+
+export { webServer }

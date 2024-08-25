@@ -7,5 +7,6 @@ export default antfu(
   },
   {
     files: ['scraper/**/*.ts'],
+    node: true,
   },
 )
