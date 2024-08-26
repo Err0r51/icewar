@@ -4,7 +4,7 @@ import { Post, PrismaClient } from '@prisma/client'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import cors from '@fastify/cors'
 
-import { FeedRequestQuery, ISearchQueryString } from './types.js'
+import { FeedRequestQuery, ISearchQueryString, ErrorResponse, SearchResponse, FeedResponse } from './types.js'
 
 dotenv.config()
 

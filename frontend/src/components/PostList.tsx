@@ -28,6 +28,7 @@ class PostList extends Component<{}, PostListState> {
       const response = await axios.get('http://localhost:3000/feed', {
         params: { cursor: this.state.cursor },
       })
+      // TODO: Global response type from Backend
       this.setState(prevState => ({
         posts: response.data.posts,
         cursor: response.data.cursor,
