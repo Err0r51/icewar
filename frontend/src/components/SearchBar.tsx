@@ -3,7 +3,7 @@ import { useSearch } from "./SearchProvider.js";
 
 
 export default function SearchBar() {
-  const { searchTerm, setSearchTerm, results, handleSearch } = useSearch();
+  const { setSearchTerm } = useSearch();
   return (
     <div>
       <input
