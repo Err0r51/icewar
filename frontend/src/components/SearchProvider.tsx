@@ -3,6 +3,9 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import useDebouncedValue from '../hooks/useDebouncedValue'
 import type { Post } from '../types'
 
+const apiUrl = import.meta.env.API_URL;
+
+
 interface SearchContextType {
   searchTerm: string
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>
@@ -19,8 +22,6 @@ export function useSearch() {
   return context
 }
 
-const baseURL = 'http://localhost:3000' // Update this to  server URL
-
 export default function SearchProvider({ children }: { children: ReactNode }) {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [results, setResults] = useState<Post[]>([])
@@ -36,7 +37,7 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
     try {
         // eslint-disable-next-line no-console
       console.log('Searching for:', debouncedQuery)
-    //   const response = await axios.get(`${baseURL}/search`, {
+    //   const response = await axios.get(`${apiUrl}/search`, {
     //     params: { query: debouncedQuery },
     //   })
 

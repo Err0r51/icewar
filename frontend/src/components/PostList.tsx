@@ -2,6 +2,9 @@ import { Component } from 'react'
 import axios from 'axios'
 import type { Post } from '../types'
 
+const apiUrl = import.meta.env.API_URL;
+
+
 interface PostListState {
   posts: Post[]
   cursor: string | null
@@ -25,7 +28,7 @@ class PostList extends Component<{}, PostListState> {
 
   fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/feed', {
+      const response = await axios.get(`${apiUrl}/feed`, {
         params: { cursor: this.state.cursor },
       })
       // TODO: Global response type from Backend
