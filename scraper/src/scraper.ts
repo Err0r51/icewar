@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+// @ts-ignore - no types available for Element
 import type { Cheerio, CheerioAPI, Element } from 'cheerio'
 import type { Post } from '@prisma/client'
 import prisma from './prisma.js'
@@ -16,7 +17,7 @@ async function scrapeAndStore() {
     const response = await AxiosInstance.get('/')
     const html = response.data
     const $: CheerioAPI = cheerio.load(html as string)
-    const latestPostsDiv: Cheerio<Element> = $('body > div.main > div.wrapper > div.latest-posts')
+    const latestPostsDiv: Cheerio<Element>= $('body > div.main > div.wrapper > div.latest-posts')
     const articles: Cheerio<Element> = latestPostsDiv.find('div.box--full, div.box--half')
 
     articles.each((_: number, element: Element) => {

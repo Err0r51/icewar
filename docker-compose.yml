@@ -9,11 +9,11 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  
+
   crawler:
     build: 
-      context: ./scraper
-      target: production
+      context: .
+      dockerfile: ./scraper/Dockerfile 
     restart: always
     depends_on:
       - db
@@ -22,10 +22,3 @@ services:
 
 volumes:
   db_data:
-
-secrets:
-  POSTGRES_USER:
-    file: ./.env/POSTGRES_USER
-  POSTGRES_PASSWORD:
-    file: ./.env/POSTGRES_PASSWORD
-  

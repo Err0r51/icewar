@@ -12,7 +12,7 @@
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"tsx\" src/index.ts",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "eslint ./src/**/*.ts --fix",
-    "build": "tsc"
+    "build": "pnpm tsc"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
