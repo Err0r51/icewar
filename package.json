@@ -5,13 +5,16 @@
   "private": true,
   "packageManager": "pnpm@9.7.1",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "prisma": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0"
   },
   "devDependencies": {
-    "prisma": "^5.18.0"
+    "prisma": "^5.18.0",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
   },
   "prisma": {
     "schema": "./prisma/schema.prisma"

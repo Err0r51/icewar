@@ -1,55 +1,25 @@
-# Build stage
-FROM node:20.11.0-alpine AS build
-
+FROM node:20.11.0-alpine AS base
 WORKDIR /app
+RUN corepack enable
 
-# Install pnpm globally
-RUN npm install -g pnpm
+FROM base AS build
+WORKDIR /app
+RUN corepack enable
+COPY . .
+RUN pnpm install 
+RUN ls -la /app/node_modules/
+RUN pnpm 
+RUN pnpm run prisma
+RUN pnpm run --filter "@icewar/scraper" build
 
-# Copy the package.json and pnpm-lock.yaml files from the scraper context
-COPY ./scraper/package*.json ./pnpm-lock.yaml ./
-
-# Install all dependencies (including devDependencies)
-RUN pnpm install
-
-# List all installed dependencies
-RUN pnpm list --depth 0
-
-# Verify that TypeScript is installed
-RUN pnpm exec tsc --version
-
-# Copy Prisma files from the root context
-COPY ./prisma ./prisma/
-
-# Copy the rest of the application files from the scraper context
-COPY ./scraper .
-
-# Generate Prisma client
-RUN pnpm dlx prisma generate
-
-RUN npx tsc
-
-# Build the application (using the build script from package.json)
-RUN pnpm run build
-
-# Production stage
+# Final image creation
 FROM node:20.11.0-alpine AS production
 
+ENV ADDRESS=0.0.0.0 PORT=3000
+ENV NODE_ENV=production
+
 WORKDIR /app
+COPY --from=build /app/dist .
+COPY --from=build /app/node_modules .
 
-# Install pnpm globally
-RUN npm install -g pnpm
-
-# Copy the package.json and pnpm-lock.yaml files from the scraper context
-COPY ./scraper/package*.json ./pnpm-lock.yaml ./
-
-# Install only production dependencies
-RUN pnpm install --prod
-
-# Copy necessary files from the build stage
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/dist ./dist
-
-# Start the application
 CMD ["node", "dist/index.js"]
