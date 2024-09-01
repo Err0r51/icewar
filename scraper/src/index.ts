@@ -1,5 +1,6 @@
-import { webServer } from '@/server.js'
-import { scrapeAndStore } from '@/scraper.js'
+// module path alias (@/*) isn't being properly resolved in the built JavaScript files
+import { webServer } from './server.js'
+import { scrapeAndStore } from './scraper.js'
 
 scrapeAndStore()
 

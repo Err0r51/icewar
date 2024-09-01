@@ -13,8 +13,8 @@ services:
   crawler:
     build: 
       context: .
-      additional_contexts:
-        - base=.
+      # additional_contexts:
+      #   - base=.
         # - app=/scraper
       dockerfile: ./scraper/Dockerfile 
     restart: always
