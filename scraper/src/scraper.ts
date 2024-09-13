@@ -45,6 +45,7 @@ async function scrapeAndStore() {
 
 async function writetodb(postData: Omit<Post, 'id' | 'createdAt'>) {
   try {
+    // TODO: this is currently pointting to mydb, change it to icemasterdb
     await prisma.post.upsert({
       where: { Url: postData.Url },
       update: {},

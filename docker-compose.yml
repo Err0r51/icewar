@@ -13,11 +13,11 @@ services:
   crawler:
     build: 
       context: .
-      # additional_contexts:
-      #   - base=.
-        # - app=/scraper
+
       dockerfile: ./scraper/Dockerfile 
-    restart: always
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
     depends_on:
       - db
     environment:

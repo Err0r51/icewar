@@ -18,6 +18,6 @@
   },
   "prisma": {
     "schema": "./prisma/schema.prisma",
-    "seed": "tsx prisma/seed.ts" 
+    "seed": "tsx scraper/src/utils/seed.ts" 
   }
 }

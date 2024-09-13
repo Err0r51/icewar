@@ -28,6 +28,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "../prisma/seed.ts"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "src/utils/seed.ts"],
   "exclude": ["node_modules"]
 }

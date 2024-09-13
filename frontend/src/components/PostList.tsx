@@ -1,9 +1,17 @@
 import { Component } from 'react'
 import axios from 'axios'
 import type { Post } from '../types'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Button } from '@/components/ui/button'
 
-const apiUrl = import.meta.env.API_URL;
-
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 interface PostListState {
   posts: Post[]
@@ -13,7 +21,7 @@ interface PostListState {
   cursors: (string | null)[]
 }
 
-class PostList extends Component<{}, PostListState> {
+class PostList extends Component<Record<string, never>, PostListState> {
   state: PostListState = {
     posts: [],
     cursor: null,
@@ -31,13 +39,19 @@ class PostList extends Component<{}, PostListState> {
       const response = await axios.get(`${apiUrl}/feed`, {
         params: { cursor: this.state.cursor },
       })
-      // TODO: Global response type from Backend
-      this.setState(prevState => ({
-        posts: response.data.posts,
-        cursor: response.data.cursor,
-        hasMore: response.data.cursor !== null,
-        cursors: [...prevState.cursors.slice(0, prevState.page), response.data.cursor],
-      }))
+      const { posts, cursor } = response.data
+      const hasMore = posts.length > 0 && cursor !== null
+      if (!hasMore) {
+        this.setState({ hasMore: false })
+      }
+      else {
+        this.setState(prevState => ({
+          posts: posts || [],
+          cursor,
+          hasMore,
+          cursors: [...prevState.cursors.slice(0, prevState.page), cursor],
+        }))
+      }
     }
     catch (error) {
       console.error('Error fetching posts:', error)
@@ -77,35 +91,40 @@ class PostList extends Component<{}, PostListState> {
 
     return (
       <div className="flex-auto items-center">
-        <ul>
-          {posts.map(post => (
-            <PostObj post={post} key={post.id} />
-          ))}
-        </ul>
-        <div>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Created At</TableHead>
+              <TableHead className="text-left">Title</TableHead>
+              <TableHead>Member only</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {posts.map(post => (
+              <TableRow key={post.id}>
+                <TableCell>{new Date(post.createdAt).toLocaleDateString()}</TableCell>
+                <a href={post.Url} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <TableCell>{post.title}</TableCell>
+                </a>
+                <TableCell>{post.memberonly ? 'Yes' : 'No'}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <div className="flex justify-center space-x-4 mt-4">
           {this.state.page > 1
           && (
-            <button type="button" onClick={this.handlePreviousPage} disabled={page === 1}>
-              Previous
-            </button>
+            <Button variant="outline" onClick={this.handlePreviousPage} disabled={page === 1}>
+              Prev
+            </Button>
           )}
-          <button type="button" onClick={this.handleNextPage} disabled={!hasMore}>
+          <Button onClick={this.handleNextPage} disabled={!hasMore}>
             Next
-          </button>
+          </Button>
         </div>
       </div>
     )
   }
-}
-
-function PostObj({ post }: { post: Post }) {
-  return (
-    <li>
-      <a href={post.Url} target="_blank" rel="noreferrer">
-        <strong>{post.title}</strong>
-      </a>
-    </li>
-  )
 }
 
 export default PostList
