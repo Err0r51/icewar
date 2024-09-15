@@ -47,21 +47,41 @@ async function webServer() {
   })
 
   app.get('/feed', async (req: FastifyRequest<{ Querystring: FeedRequestQuery }>, res: FastifyReply) => {
-    const { cursor } = req.query
+    try {
+      const { limit = '10', offset = '0', search } = req.query;
   
-    const posts = await prisma.post.findMany({
-      take: TAKE,
-      skip: cursor ? 1 : 0, 
-      cursor: cursor ? { id: parseInt(cursor) } : undefined,
-      orderBy: { id: 'asc' },
-    })
+      // Set the pagination parameters
+      const paginationLimit = parseInt(limit);
+      const paginationOffset = parseInt(offset);
   
-    const newCursor = posts.length > 0 ? posts[posts.length - 1]?.id : null
-
-    console.log('cursor:', newCursor)
+      // Define the base query
+      const queryOptions: any = {
+        take: paginationLimit,
+        skip: paginationOffset,
+        orderBy: { createdAt: 'desc' }, // or another field you want to sort by
+      };
   
-    res.send({ posts, cursor: newCursor })
-  })
+      // If search is provided, apply a filter to search within post titles or other fields
+      if (search) {
+        queryOptions.where = {
+              title: { contains: search, mode: 'insensitive' }, // Search in title (case-insensitive)
+        };
+      }
+  
+      // Fetch the posts from the database
+      const posts = await prisma.post.findMany(queryOptions);
+  
+  
+      // Send the response with posts and pagination info
+      res.send({
+        posts,
+        limit: paginationLimit,
+        offset: paginationOffset,
+      });
+    } catch (error) {
+      res.status(500).send({ error: 'Failed to fetch posts' });
+    }
+  });
 
   try {
     await app.listen({ port: Number(PORT), host: '0.0.0.0' })

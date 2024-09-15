@@ -5,9 +5,11 @@ interface ISearchQueryString {
     orderBy: 'title' | 'createdAt' | null
   }
   
-interface FeedRequestQuery {
-    cursor?: string;
-  }
+  type FeedRequestQuery = {
+    limit?: string;
+    offset?: string;
+    search?: string;
+  };
 
 
 export interface ErrorResponse {
