@@ -58,7 +58,7 @@ async function webServer() {
       const queryOptions: any = {
         take: paginationLimit,
         skip: paginationOffset,
-        orderBy: { createdAt: 'desc' }, // or another field you want to sort by
+        orderBy: { createdAt: 'desc' },
       };
   
       // If search is provided, apply a filter to search within post titles or other fields
@@ -70,11 +70,18 @@ async function webServer() {
   
       // Fetch the posts from the database
       const posts = await prisma.post.findMany(queryOptions);
+
+      // TODO: make more efficient -> one call to get count and posts
+      // Fetch the total number of posts for pagination calculation
+      const totalPosts = await prisma.post.count({
+        where: search ? { title: { contains: search, mode: 'insensitive' } } : {},
+      });
   
   
       // Send the response with posts and pagination info
       res.send({
         posts,
+        totalPosts,
         limit: paginationLimit,
         offset: paginationOffset,
       });

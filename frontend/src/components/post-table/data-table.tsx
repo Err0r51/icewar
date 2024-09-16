@@ -1,5 +1,6 @@
 import type {
   ColumnDef,
+  PaginationState,
 } from '@tanstack/react-table'
 import {
   flexRender,
@@ -8,7 +9,6 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Button } from '../ui/button'
 import { Pagination } from './pagination'
 import {
   Table,
@@ -23,26 +23,42 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   pageCount: number
+  pageIndex: number
+  onPageChange: (newPageIndex: number) => void
+  loading: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   pageCount,
+  pageIndex,
+  onPageChange,
+  loading,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    manualPagination: true,
+    manualPagination: true, // Enable server-side pagination
+    pageCount, // Provide the total number of pages
     state: {
-        pagination: {
-            pageIndex: 0,
-            pageSize: 10,
-        },
-        },
-
+      pagination: {
+        pageIndex, // Use pageIndex from parent
+        pageSize: 10, // Number of rows per page
+      },
+    },
+    onPaginationChange: (updaterOrValue) => {
+      // Check if `updaterOrValue` is a function (the "updater" case)
+      if (typeof updaterOrValue === 'function') {
+        // If it's a function, call it with the current pagination state
+        const newPaginationState = updaterOrValue({ pageIndex, pageSize: 10 });
+        onPageChange(newPaginationState.pageIndex); // Trigger page change
+      } else {
+        // If it's not a function, it's the new state (the "direct value" case)
+        onPageChange(updaterOrValue.pageIndex); // Trigger page change with the new pageIndex
+      }
+    },
   })
 
   return (
