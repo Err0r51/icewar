@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import type { Post } from '../types'
 import { columns } from './post-table/columns'
 import { DataTable } from './post-table/data-table'
 
