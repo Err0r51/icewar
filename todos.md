@@ -5,7 +5,5 @@
 
 # ToDos for Project
 - [ ] Click on the link to see the details
-- [ ] Center + Fix Search
+- [ ] Fix Search + Jump of table
 - [ ] Fix Member only
-
-

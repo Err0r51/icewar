@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useEffect, useMemo, useState } from 'react'
 import useDebouncedValue from '../hooks/useDebouncedValue'
 import type { Post } from '../types'
 
-const apiUrl = import.meta.env.API_URL;
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3000';
 
 
 interface SearchContextType {
@@ -12,15 +12,8 @@ interface SearchContextType {
   results: Post[]
 }
 
-const SearchContext = createContext<SearchContextType | undefined>(undefined)
+export const SearchContext = createContext<SearchContextType | undefined>(undefined)
 
-export function useSearch() {
-  const context = useContext(SearchContext)
-  if (!context) {
-    throw new Error('useSearch must be used within a SearchProvider')
-  }
-  return context
-}
 
 export default function SearchProvider({ children }: { children: ReactNode }) {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -76,7 +69,7 @@ const mockData: Post[] = [
   ];
   
   // Search function
-  function searchPosts(query) {
+  function searchPosts(query: string) {
     return mockData.filter(post => post.title.toLowerCase().includes(query.toLowerCase()));
   }
   
