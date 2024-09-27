@@ -9,6 +9,7 @@ export default function SearchBar() {
         type="text"
         placeholder="Search Articles"
         onChange={e => setSearchTerm(e.target.value)}
+        className="w-full px-4 py-2 border border-secondary rounded-lg focus:outline-primary"
       />
       {searchTerm  && (
         <div className="absolute top-full left-0 right-0 mt-2">

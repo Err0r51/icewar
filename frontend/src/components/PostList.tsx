@@ -50,7 +50,7 @@ export default function PostList() {
   }
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto pb-10 pt-5">
       <DataTable
         columns={columns}
         data={data}
