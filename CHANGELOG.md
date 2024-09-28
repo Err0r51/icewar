@@ -1,3 +1,31 @@
+# [1.1.0](https://github.com/Err0r51/icewar/compare/v1.0.0...v1.1.0) (2024-09-28)
+
+
+### Bug Fixes
+
+* **build:** :green_heart:  finally working build ([5a8d46f](https://github.com/Err0r51/icewar/commit/5a8d46ff539ed3aa68f4c0920588655ae482250a))
+* **docker:** :poop:  fuck docker ([e8d6834](https://github.com/Err0r51/icewar/commit/e8d68346d4541800bf71d5a1e932fe54259d3b58))
+* **prisma:** :bug:  fixed prisma config for monorepo ([ad2b7b2](https://github.com/Err0r51/icewar/commit/ad2b7b262476354b1f1d9be22c9d27a5461d301e))
+
+
+### Features
+
+* **api-types:** :construction:  BROKEN added api types ([647a7e8](https://github.com/Err0r51/icewar/commit/647a7e8d18e6ce38d6ecb2b53a7141b1194e4e1a))
+* **data-table:** :construction:  (broken) implementation of tanstack table ([41f6ffd](https://github.com/Err0r51/icewar/commit/41f6ffd3efa706c70589e3291f63bc08dcaab1b1))
+* **data-table\:** :sparkles:  (ugly) working pagination ([fa3ea8e](https://github.com/Err0r51/icewar/commit/fa3ea8e8b818e6ff30c280a07f5a388306041f8c))
+* **frontend:** :sparkles:  added frontend (heavy WIP) ([c546577](https://github.com/Err0r51/icewar/commit/c546577a9cb0b7df17cef9151c3b69df03510794))
+* **pagination:** :sparkles:  added simple pagination ([fdf585f](https://github.com/Err0r51/icewar/commit/fdf585f1e95d7da8a4a4751af6adc711497a053f))
+* **search:** :construction:  added search with provider ([67b3ed3](https://github.com/Err0r51/icewar/commit/67b3ed34980a556fd4103a05472ba0166f62fb7e))
+* **search:** :construction:  frontend searchbar added ([c811c56](https://github.com/Err0r51/icewar/commit/c811c565a491f9f88510bfaff46a7d4e1656a62b))
+* **search:** :sparkles:  added working full search ([225ac54](https://github.com/Err0r51/icewar/commit/225ac540cbd57aeb32a60895f2f9f10afa050469))
+* **searchbar:** :sparkles:  added first e2e searchbar ([d1b5f8e](https://github.com/Err0r51/icewar/commit/d1b5f8e3f922d511cbd43a2ee8e8936450dcbae5))
+* **searchbar:** :sparkles:  added integrated search datatable ([f9240ff](https://github.com/Err0r51/icewar/commit/f9240ffda84951b6380a7e2d96aa20ac3255944d))
+* **style:** :sparkles:  added shadcn and fixed pagination ([a818f16](https://github.com/Err0r51/icewar/commit/a818f1698210161d35e5b3977f155b8845154784))
+* **tailwind:** :lipstick:  added tailwind and fixed frontend issues ([096d9c3](https://github.com/Err0r51/icewar/commit/096d9c3029015b6fdf4b0953e613ca2614ec3adc))
+* **url:** :sparkles:  clicking on link now opens page ([3b9af72](https://github.com/Err0r51/icewar/commit/3b9af722c07da6c60ecebd906b8b70f6ec65967c))
+* **webserve:** :sparkles:  working feed and search endpoints ([a5af84c](https://github.com/Err0r51/icewar/commit/a5af84ca9149e650bbcf17e644ef3f671651e6cc))
+* **webserver:** :construction:  First WIP Endpoint ([06971de](https://github.com/Err0r51/icewar/commit/06971dec90aeed5dc51ca32edc494b4c06412313))
+
 # 1.0.0 (2024-08-17)
 
 
