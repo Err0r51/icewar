@@ -3,22 +3,23 @@ import axios from 'axios'
 import useSearch from './useSearch'
 import { columns } from './post-table/columns'
 import { DataTable } from './post-table/data-table'
+import type { Post } from '@/types'
 
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 // Modify the fetchPosts function to return totalPosts along with the posts
-async function fetchPosts(pageIndex: number, pageSize: number) {
+async function fetchPosts(pageIndex: number, pageSize: number): Promise<{ posts: Post[], totalPosts: number }> {
   const offset = pageIndex * pageSize
   const response = await axios.get(`${apiUrl}/feed`, {
     params: { limit: pageSize, offset },
   })
-  const { posts, totalPosts } = response.data 
+  const { posts, totalPosts } = response.data
   return { posts, totalPosts }
 }
 
 export default function PostList() {
   const { results, searchTerm } = useSearch() // Get search term and results from context
-  const [data, setData] = useState([]) // Data from the API
+  const [data, setData] = useState<Post[]>([]) // Data from the API
   const [pageIndex, setPageIndex] = useState(0) // Current page index
   const [pageSize] = useState(10) // Rows per page
   const [pageCount, setPageCount] = useState(0) // Total number of pages
@@ -47,6 +48,16 @@ export default function PostList() {
     loadPosts()
   }, [pageIndex, pageSize, searchTerm, results])
 
+  const handleRowClick = (row: Post) => {
+    if (row.Url) {
+    // Open the post in a new tab
+      window.open(row.Url, '_blank')
+    }
+    else {
+      console.error('No URL available for this post')
+    }
+  }
+
   // Handler to change the page (triggered by DataTable)
   const handlePageChange = (newPageIndex: number) => {
     setPageIndex(newPageIndex) // This will trigger the useEffect to fetch the new page
@@ -64,6 +75,7 @@ export default function PostList() {
         pageIndex={pageIndex}
         onPageChange={handlePageChange}
         loading={loading}
+        onRowClick={handleRowClick}
       />
     </div>
   )

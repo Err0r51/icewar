@@ -4,6 +4,8 @@
 - [ ] branching strategies
 
 # ToDos for Project
-- [ ] Click on the link to see the details
-- [ ] Fix Search + Jump of table
+- [x] Click on the link to see the details
+- [ ] Fix Backend Search
+- [ ] Fix perodic refresh
+- [x] Fix Search + Jump of table
 - [ ] Fix Member only

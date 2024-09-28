@@ -1,11 +1,9 @@
 import type {
   ColumnDef,
-  PaginationState,
 } from '@tanstack/react-table'
 import {
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 
@@ -26,6 +24,7 @@ interface DataTableProps<TData, TValue> {
   pageIndex: number
   onPageChange: (newPageIndex: number) => void
   loading: boolean
+  onRowClick: (row: TData) => void
 }
 
 export function DataTable<TData, TValue>({
@@ -34,7 +33,7 @@ export function DataTable<TData, TValue>({
   pageCount,
   pageIndex,
   onPageChange,
-  loading,
+  onRowClick,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -52,11 +51,12 @@ export function DataTable<TData, TValue>({
       // Check if `updaterOrValue` is a function (the "updater" case)
       if (typeof updaterOrValue === 'function') {
         // If it's a function, call it with the current pagination state
-        const newPaginationState = updaterOrValue({ pageIndex, pageSize: 10 });
-        onPageChange(newPaginationState.pageIndex); // Trigger page change
-      } else {
+        const newPaginationState = updaterOrValue({ pageIndex, pageSize: 10 })
+        onPageChange(newPaginationState.pageIndex) // Trigger page change
+      }
+      else {
         // If it's not a function, it's the new state (the "direct value" case)
-        onPageChange(updaterOrValue.pageIndex); // Trigger page change with the new pageIndex
+        onPageChange(updaterOrValue.pageIndex) // Trigger page change with the new pageIndex
       }
     },
   })
@@ -90,6 +90,8 @@ export function DataTable<TData, TValue>({
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
+                      onClick={() => onRowClick(row.original)} // Pass the original row data up
+                      className="cursor-pointer"
                     >
                       {row.getVisibleCells().map(cell => (
                         <TableCell key={cell.id}>
