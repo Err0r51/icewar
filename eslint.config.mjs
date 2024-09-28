@@ -1,3 +1,12 @@
-import antfu from "@antfu/eslint-config";
+import antfu from '@antfu/eslint-config'
 
-export default antfu();
+export default antfu(
+  {
+    files: ['frontend/**/*.ts', 'frontend/**/*.tsx'],
+    react: true,
+  },
+  {
+    files: ['scraper/**/*.ts'],
+    node: true,
+  },
+)
