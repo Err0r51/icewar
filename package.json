@@ -4,6 +4,21 @@
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@9.7.1",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ]
+  },
   "scripts": {
     "test": "vitest",
     "prisma": "prisma generate"
@@ -12,6 +27,15 @@
     "@prisma/client": "^5.18.0"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.24.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/axios": "^0.9.36",
+    "@types/cheerio": "^0.22.35",
+    "@types/node": "^22.1.0",
+    "eslint": "^9.8.0",
+    "nodemon": "^3.1.4",
     "prisma": "^5.18.0",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4"

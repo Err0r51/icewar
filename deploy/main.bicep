@@ -239,7 +239,7 @@ resource dbContainerApp 'Microsoft.App/containerApps@2024-03-01' = {
       }
       volumes: [
         {
-          mountOptions: 'uid=1000,gid=1000,nobrl,mfsymlinks,cache=none'
+          mountOptions: 'uid=999,gid=999,nobrl,mfsymlinks,cache=none,dir_mode=0750,file_mode=0750'
           name: mountName
           storageType: 'AzureFile'
           storageName: environmentStorageName
