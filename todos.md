@@ -5,7 +5,9 @@
 
 # ToDos for Project
 - [x] Click on the link to see the details
-- [ ] Fix Backend Search
+- [x] Fix Backend Search
 - [ ] Fix perodic refresh
 - [x] Fix Search + Jump of table
 - [ ] Fix Member only
+- [ ] Better typesharing
+- [ ] API auth
