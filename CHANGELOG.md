@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Err0r51/icewar/compare/v1.1.0...v1.2.0) (2024-09-29)
+
+
+### Features
+
+* **search:** :sparkles:  added e2e search ([3796115](https://github.com/Err0r51/icewar/commit/37961156296c2fa4e9a3c86d6b6c4ad0a6741d64))
+
 # [1.1.0](https://github.com/Err0r51/icewar/compare/v1.0.0...v1.1.0) (2024-09-28)
 
 
