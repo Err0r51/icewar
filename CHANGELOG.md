@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/Err0r51/icewar/compare/v1.2.0...v1.3.0) (2024-09-30)
+
+
+### Bug Fixes
+
+* **lock-file:** :wrench:  fixed some ugly lock-file issues ([ba087b7](https://github.com/Err0r51/icewar/commit/ba087b74070916b26a2a9f1ed94093757965892d))
+
+
+### Features
+
+* **api-security:** :lock:  added cors/ratelimiting ([d1489e8](https://github.com/Err0r51/icewar/commit/d1489e8f4dede72d70679f90da86f15e19b275e9))
+
 # [1.2.0](https://github.com/Err0r51/icewar/compare/v1.1.0...v1.2.0) (2024-09-29)
 
 
