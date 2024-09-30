@@ -3,10 +3,15 @@ import dotenv from 'dotenv'
 import { Post, PrismaClient } from '@prisma/client'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import cors from '@fastify/cors'
+import rateLimit from '@fastify/rate-limit';
+
 
 import { FeedRequestQuery, ISearchQueryString } from './types.js'
 
 dotenv.config()
+
+const allowedOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'; // Fallback to localhost if not provided
+
 
 const prisma = new PrismaClient()
 
@@ -16,10 +21,16 @@ const TAKE = Number(process.env.TAKE) || 5
 async function webServer() {
   const app: FastifyInstance = Fastify({ logger: true })
   
-  app.register(cors, {
-    // TODO: Update this to only allow the frontend URL
-    origin: '*',
-  })
+  await app.register(rateLimit, {
+    max: 60, 
+    timeWindow: '1 minute', 
+    ban: 5 
+  });
+  
+  await app.register(cors, {
+    origin: allowedOrigin,
+    methods: ['GET'],
+  }, )
 
   app.get<{ Querystring: ISearchQueryString }>('/search', async (req: FastifyRequest<{ Querystring: ISearchQueryString }>, res: FastifyReply) => {
     const { query, orderBy } = req.query

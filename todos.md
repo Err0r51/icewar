@@ -9,5 +9,5 @@
 - [ ] Fix perodic refresh
 - [x] Fix Search + Jump of table
 - [ ] Fix Member only
-- [ ] Better typesharing
+- [ ] Better typesharing -> OpenAPI fastify + separate package
 - [ ] API auth

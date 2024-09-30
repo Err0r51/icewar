@@ -10,7 +10,9 @@
   "keywords": [],
   "main": "index.js",
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -31,7 +33,6 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@tsconfig/node20": "^20.1.4",
-    "@types/axios": "^0.9.36",
     "@types/cheerio": "^0.22.35",
     "@types/node": "^22.1.0",
     "eslint": "^9.8.0",
@@ -42,6 +43,6 @@
   },
   "prisma": {
     "schema": "./prisma/schema.prisma",
-    "seed": "tsx scraper/src/utils/seed.ts" 
+    "seed": "tsx scraper/src/utils/seed.ts"
   }
 }
