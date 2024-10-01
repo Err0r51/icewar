@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/Err0r51/icewar/compare/v1.3.0...v1.4.0) (2024-10-01)
+
+
+### Features
+
+* **memberonly:** :sparkles:  added identification of member only articles ([c90c311](https://github.com/Err0r51/icewar/commit/c90c311302a9d40d2c94b4a6722924ed97ed75fe))
+* **toggle:** :sparkles:  added toggle button for free articles only ([dc1b94f](https://github.com/Err0r51/icewar/commit/dc1b94fd7fba7b1ad44728ff13c6ecf47a66176f))
+
 # [1.3.0](https://github.com/Err0r51/icewar/compare/v1.2.0...v1.3.0) (2024-09-30)
 
 
