@@ -30,7 +30,6 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
       const response = await axios.get(`${apiUrl}/search`, {
         params: { query: debouncedQuery },
       })
-      // TODO: handle errors
       setResults(response.data)
     }
     catch (error) {

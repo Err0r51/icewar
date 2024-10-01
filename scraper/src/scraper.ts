@@ -21,17 +21,24 @@ async function scrapeAndStore() {
     const articles: Cheerio<Element> = latestPostsDiv.find('div.box--full, div.box--half')
 
     articles.each((_: number, element: Element) => {
+      let isMemberOnly = false
       const title = $(element).find('h2 a, h3 a').text()
       const link = $(element).find('h2 a, h3 a').attr('href')
 
       console.log(`Title: ${title}`)
       console.log(`Link: ${link}`)
 
+      if (title.includes('Rewind and Reconnoiter') || title.includes('In Brief') || title.includes('Mid-Afternoon Map')) {
+        isMemberOnly = true
+      }
+
+      console.log(`Is Member Only: ${isMemberOnly}`)
+
       if (title && link) {
         writetodb({
           title,
           Url: link,
-          memberonly: false,
+          memberonly: isMemberOnly,
         }).catch((error) => {
           console.error(`Failed to write to DB for link: ${link}`, error)
         })

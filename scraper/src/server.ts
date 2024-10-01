@@ -39,7 +39,6 @@ async function webServer() {
       return res.status(400).send({ error: 'query is required' })
     }
 
-     // TODO: make case insensitive
     const or = {
       OR: [
         { title: { contains: query } },
