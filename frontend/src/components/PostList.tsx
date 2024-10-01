@@ -4,6 +4,8 @@ import useSearch from './useSearch'
 import { columns } from './post-table/columns'
 import { DataTable } from './post-table/data-table'
 import type { Post } from '@/types'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
 
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -24,6 +26,7 @@ export default function PostList() {
   const [pageSize] = useState(10) // Rows per page
   const [pageCount, setPageCount] = useState(0) // Total number of pages
   const [loading, setLoading] = useState(false)
+  const [freeArticlesOnly, setFreeArticlesOnly] = useState(false)
 
   // Fetch posts when the page index changes
   useEffect(() => {
@@ -63,11 +66,28 @@ export default function PostList() {
     setPageIndex(newPageIndex) // This will trigger the useEffect to fetch the new page
   }
 
+  const filteredData = freeArticlesOnly ? data.filter(post => !post.memberonly) : data
+
   // If there are search results, show them instead of the API data
-  const displayData = results.length > 0 ? results : data
+  const displayData = results.length > 0 ? results : filteredData
+
+  const toggleFreeArticlesOnly = () => {
+    setFreeArticlesOnly(!freeArticlesOnly)
+  }
 
   return (
     <div className="container mx-auto pb-10 pt-5">
+      <div className="flex justify-end mb-4">
+        <label className="flex items-center space-x-2">
+          <Switch
+            checked={freeArticlesOnly}
+            onCheckedChange={toggleFreeArticlesOnly}
+            className="data-[state=checked]:bg-primary"
+            id="free-articles-only"
+          />
+          <Label htmlFor="free-articles-only">Free Articles Only</Label>
+        </label>
+      </div>
       <DataTable
         columns={columns}
         data={displayData}
