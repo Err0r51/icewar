@@ -8,7 +8,13 @@
 - [x] Fix Backend Search
 - [x] Fix perodic refresh
 - [x] Fix Search + Jump of table
-- [ ] Fix Member only
+- [ ] Fix Paination with filter
+- [x] Fix Member only
 - [ ] Better typesharing -> OpenAPI fastify + separate package
 - [x] API auth
 - [ ] Prisma Seed and init
+
+# CI/CD
+- [ ] Database based on coolify
+- [ ] Staging Server with Prisma Seed
+- [ ] Production Server with TLS and Domin
