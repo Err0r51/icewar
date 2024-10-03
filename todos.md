@@ -1,5 +1,4 @@
 # ToDos for the DevOps
-- [ ] CI/CD on coolify
 - [ ] feature flags
 - [ ] branching strategies
 
@@ -16,5 +15,7 @@
 
 # CI/CD
 - [ ] Database based on coolify
+- [ ] Prisma Fix for Migration and Seed
 - [ ] Staging Server with Prisma Seed
 - [ ] Production Server with TLS and Domin
+- [ ] Migrate ENV
