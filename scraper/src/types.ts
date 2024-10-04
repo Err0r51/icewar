@@ -1,4 +1,4 @@
-import { Post } from '@prisma/client';
+import { Post } from '@icewar/prisma';
 
 interface ISearchQueryString {
     query: string

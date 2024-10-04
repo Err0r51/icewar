@@ -4,10 +4,12 @@
     "baseUrl": "./",
     "rootDir": "./src",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "prisma": ["../prisma/node_modules/@prisma/client/*"],
+      // "@icewar/prisma": ["../prisma"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
-    "types": ["node"],
+    // "types": ["node", "../prisma/node_modules/@prisma/client/index.d.ts", "../prisma/node_modules/@prisma/client/runtime/library.d.ts"],
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,

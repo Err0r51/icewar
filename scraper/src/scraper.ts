@@ -3,7 +3,8 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 // @ts-ignore - no types available for Element
 import type { Cheerio, CheerioAPI, Element } from 'cheerio'
-import type { Post } from '@prisma/client'
+
+import type { Post } from '@icewar/prisma'
 import prisma from './prisma.js'
 
 

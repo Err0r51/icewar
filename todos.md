@@ -7,9 +7,9 @@
 - [x] Fix Backend Search
 - [x] Fix perodic refresh
 - [x] Fix Search + Jump of table
-- [ ] Fix Paination with filter
+- [ ] Fix Pagination with filter
 - [x] Fix Member only
-- [ ] Better typesharing -> OpenAPI fastify + separate package
+- [x] Better typesharing -> OpenAPI fastify + separate package
 - [x] API auth
 - [ ] Prisma Seed and init
 
