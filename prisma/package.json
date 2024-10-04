@@ -1,0 +1,23 @@
+{
+  "name": "@icewar/prisma",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.7.1",
+  "scripts": {
+    "generate": "prisma generate"
+  },
+  "prisma": {
+    "schema": "schema.prisma",
+    "seed": "tsx ../scraper/src/utils/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.18.0",
+    "prisma": "^5.18.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+
+}
+

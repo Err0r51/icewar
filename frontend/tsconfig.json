@@ -2,8 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "prisma": ["../prisma/node_modules/@prisma/client/*"]
+    },
+    // Expose Prisma Client types to frontend
+    "types": ["../prisma/node_modules/@prisma/client/index.d.ts", "../prisma/node_modules/@prisma/client/runtime/library.d.ts"]
   },
   "references": [
     { "path": "./tsconfig.app.json" },
