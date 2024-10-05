@@ -5,11 +5,9 @@
     "rootDir": "./src",
     "paths": {
       "@/*": ["src/*"],
-      "prisma": ["../prisma/node_modules/@prisma/client/*"],
-      // "@icewar/prisma": ["../prisma"]
+      "@icewar/prisma": ["../prisma"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"],
-    // "types": ["node", "../prisma/node_modules/@prisma/client/index.d.ts", "../prisma/node_modules/@prisma/client/runtime/library.d.ts"],
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
@@ -31,5 +29,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx", "src/utils/seed.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

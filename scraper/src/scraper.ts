@@ -3,10 +3,13 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 // @ts-ignore - no types available for Element
 import type { Cheerio, CheerioAPI, Element } from 'cheerio'
+import dotenv from 'dotenv'
 
 import type { Post } from '@icewar/prisma'
 import prisma from './prisma.js'
 
+dotenv.config()
+console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
 const url = 'https://warontherocks.com/'
 const AxiosInstance = axios.create({

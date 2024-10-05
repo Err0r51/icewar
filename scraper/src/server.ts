@@ -11,6 +11,7 @@ import { FeedRequestQuery, ISearchQueryString } from './types.js'
 
 dotenv.config()
 
+
 const allowedOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'; // Fallback to localhost if not provided
 
 
