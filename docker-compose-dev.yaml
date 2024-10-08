@@ -6,21 +6,26 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - ./scraper/.env
+    # environment:
+    #   POSTGRES_USER: ${POSTGRES_USER}
+    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   crawler:
     build: 
       context: .
       dockerfile: ./scraper/Dockerfile 
+    # command: ["tail", "-f", "/dev/null"]
     restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      DATABASE_URL: ${DATABASE_URL}
+    env_file:
+      - ./scraper/.env
+    # environment:
+    #   DATABASE_URL: ${DATABASE_URL}
 
   # frontend:
   #   build: 
@@ -31,8 +36,11 @@ services:
   #     - "3001:80"
   #   depends_on:
   #     - crawler
-  #   environment:
-  #     CRAWLER_URL: ${CRAWLER_URL}
+  #   env_file:
+  #     - ./frontend/.env
+  #   # environment:
+  #   #   CRAWLER_URL: ${CRAWLER_URL}
+  #     # VITE_API_URL: ${VITE_API_URL}
 
 volumes:
   db_data:

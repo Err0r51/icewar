@@ -1,13 +1,17 @@
 {
-  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
+    "target": "es2022",
+    "lib": ["ESNext"],
     "baseUrl": "./",
     "rootDir": "./src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
     "paths": {
       "@/*": ["src/*"],
       "@icewar/prisma": ["../prisma"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/types"],
+    // "typeRoots": ["./node_modules/@types", "./src/types"],
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
@@ -27,10 +31,11 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
+
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx", "src/utils/seed.ts"],
   "exclude": ["node_modules"],
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
+  // "ts-node": {
+  //   "require": ["tsconfig-paths/register"]
+  // }
 }

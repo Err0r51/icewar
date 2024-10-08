@@ -3,12 +3,13 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 // @ts-ignore - no types available for Element
 import type { Cheerio, CheerioAPI, Element } from 'cheerio'
-import dotenv from 'dotenv'
+// @ts-ignore - no types available for dotenv
+import dotenv from 'dotenv/config'
 
 import type { Post } from '@icewar/prisma'
 import prisma from './prisma.js'
 
-dotenv.config()
+// TODO: dont use dotenv in production
 console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
 const url = 'https://warontherocks.com/'

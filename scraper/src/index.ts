@@ -1,5 +1,4 @@
 // module path alias (@/*) isn't being properly resolved in the built JavaScript files
-console.log(import.meta.resolve('@icewar/prisma'));
 import { webServer } from './server.js'
 import { scrapeAndStore } from './scraper.js'
 
