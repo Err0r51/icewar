@@ -15,8 +15,10 @@ services:
   crawler:
     build: 
       context: .
-      dockerfile: ./scraper/Dockerfile 
-    # command: ["tail", "-f", "/dev/null"]
+      dockerfile: ./scraper/Dockerfile
+      # dockerfile: ./Dockerfile 
+ 
+    command: ["tail", "-f", "/dev/null"]
     restart: unless-stopped
     ports:
       - "3000:3000"

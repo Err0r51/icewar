@@ -10,7 +10,6 @@ import type { Post } from '@icewar/prisma'
 import prisma from './prisma.js'
 
 // TODO: dont use dotenv in production
-console.log('DATABASE_URL:', process.env.DATABASE_URL)
 
 const url = 'https://warontherocks.com/'
 const AxiosInstance = axios.create({

@@ -7,8 +7,7 @@
   "keywords": [],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -24,6 +23,10 @@
     "lint:fix": "eslint ./src/**/*.ts --fix",
     "build": "unbuild"
   },
+  "unbuild": {
+    "failonWarn": false
+  },
+
   "dependencies": {
     "@fastify/cors": "^10.0.1",
     "@fastify/rate-limit": "^10.1.0",
@@ -34,7 +37,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.24.1",
-    "@icewar/prisma": "workspace:*",
     "@tsconfig/node20": "^20.1.4",
     "@types/axios": "^0.9.36",
     "@types/cheerio": "^0.22.35",
