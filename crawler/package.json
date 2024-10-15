@@ -1,0 +1,22 @@
+{
+  "name": "@icewar/scraper",
+  "type": "module",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs"
+  },
+  "dependencies": {
+    "@icewar/prisma": "workspace:*",
+    "axios": "^1.7.3",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "nitropack": "latest"
+  }
+}

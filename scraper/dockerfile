@@ -17,7 +17,7 @@ RUN pnpm run --filter "@icewar/prisma" build
 
 RUN pnpm run --filter "@icewar/scraper" build
 
-# RUN pnpm deploy --filter "@icewar/scraper" --prod /prod/app1
+# RUN pnpm deploy --config.shamefully-hoist=true --config.shared-workspace-lockfile=false --filter "@icewar/scraper" --prod /prod/app1
 
 FROM base AS production
 WORKDIR /usr/src/app
