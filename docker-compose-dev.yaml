@@ -15,7 +15,7 @@ services:
   crawler:
     build: 
       context: .
-      dockerfile: ./scraper/Dockerfile
+      dockerfile: ./crawler/Dockerfile
       # dockerfile: ./Dockerfile 
  
     # command: ["tail", "-f", "/dev/null"]
@@ -25,7 +25,7 @@ services:
     depends_on:
       - db
     env_file:
-      - ./scraper/.env
+      - ./crawler/.env
     # environment:
     #   DATABASE_URL: ${DATABASE_URL}
 

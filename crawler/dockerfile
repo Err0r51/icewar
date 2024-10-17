@@ -1,0 +1,22 @@
+FROM node:20.11.0-alpine AS build
+WORKDIR /app
+RUN corepack enable
+COPY . . 
+RUN pnpm install
+RUN pnpm run --filter "@icewar/prisma" generate
+RUN pnpm run --filter "@icewar/prisma" build
+RUN pnpm run --filter "@icewar/crawler" build
+
+# Final image creation
+FROM gcr.io/distroless/nodejs20-debian12
+ARG PORT 
+ENV NODE_ENV=production
+# ENV NITRO_PORT=${PORT}
+ENV NITRO_PORT=3000
+
+WORKDIR /app
+COPY --from=build /app/crawler/.output .
+
+EXPOSE 3000
+CMD [ "./server/index.mjs" ]
+
