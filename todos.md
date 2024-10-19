@@ -10,12 +10,12 @@
 - [ ] Fix Pagination with filter
 - [x] Fix Member only
 - [x] Better typesharing -> OpenAPI fastify + separate package
-- [x] API auth
+- [ ] API auth Rate Limit and CORS
 - [ ] Prisma Seed and init
 
 # CI/CD
 - [ ] Database based on coolify
 - [ ] Prisma Fix for Migration and Seed
 - [ ] Staging Server with Prisma Seed
-- [ ] Production Server with TLS and Domin
+- [ ] Production Server with TLS and Domain
 - [ ] Migrate ENV

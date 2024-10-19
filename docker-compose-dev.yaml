@@ -7,7 +7,7 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - ./scraper/.env
+      - ./crawler/.env
     # environment:
     #   POSTGRES_USER: ${POSTGRES_USER}
     #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -29,20 +29,20 @@ services:
     # environment:
     #   DATABASE_URL: ${DATABASE_URL}
 
-  # frontend:
-  #   build: 
-  #     context: .
-  #     dockerfile: ./frontend/Dockerfile 
-  #   restart: unless-stopped
-  #   ports:
-  #     - "3001:80"
-  #   depends_on:
-  #     - crawler
-  #   env_file:
-  #     - ./frontend/.env
-  #   # environment:
-  #   #   CRAWLER_URL: ${CRAWLER_URL}
-  #     # VITE_API_URL: ${VITE_API_URL}
+  frontend:
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile 
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    depends_on:
+      - crawler
+    env_file:
+      - ./frontend/.env
+    # environment:
+    #   CRAWLER_URL: ${CRAWLER_URL}
+      # VITE_API_URL: ${VITE_API_URL}
 
 volumes:
   db_data:

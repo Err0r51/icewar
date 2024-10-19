@@ -12,7 +12,7 @@ const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 // Modify the fetchPosts function to return totalPosts along with the posts
 async function fetchPosts(pageIndex: number, pageSize: number): Promise<{ posts: Post[], totalPosts: number }> {
   const offset = pageIndex * pageSize
-  const response = await axios.get(`${apiUrl}/feed`, {
+  const response = await axios.get<{ posts: Post[], totalPosts: number }>(`${apiUrl}/feed`, {
     params: { limit: pageSize, offset },
   })
   const { posts, totalPosts } = response.data

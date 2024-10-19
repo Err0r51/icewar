@@ -1,6 +1,6 @@
 import { getQuery, sendError } from 'h3'
-import type { FeedRequestQuery } from './types.js' // fix imports
-import prisma from '~/utils/prisma'
+import type { FeedRequestQuery } from '~/utils/types.js'
+import { prisma } from '~/utils/prisma'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -42,6 +42,6 @@ export default defineEventHandler(async (event) => {
     }
   }
   catch {
-    return sendError(event, new Error('Failed to fetch posts'), 500)
+    return sendError(event, createError({ statusCode: 503, statusMessage: 'Failed to fetch posts' }), true)
   }
 })

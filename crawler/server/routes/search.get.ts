@@ -1,6 +1,6 @@
 import { getQuery, sendError } from 'h3'
-import type { ISearchQueryString } from './types.js' // fix imports
-import prisma from '~/utils/prisma'
+import type { ISearchQueryString } from '~/utils/types.js' // fix imports
+import { prisma } from '~/utils/prisma'
 
 const TAKE = 10
 
@@ -10,7 +10,7 @@ export default eventHandler(async (event) => { // arrow async function
 
   if (!searchQuery) {
     // Send 400 error response if the query is missing
-    return sendError(event, new Error('query is required'), 400)
+    return sendError(event, createError({ statusCode: 400, statusMessage: 'query is required' }))
   }
 
   // Construct Prisma filter condition for search

@@ -27,21 +27,20 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      const response = await axios.get(`${apiUrl}/search`, {
+      const response = await axios.get<{ posts: Post[] }>(`${apiUrl}/search`, {
         params: { query: debouncedQuery },
       })
-      setResults(response.data)
+      setResults(response.data.posts) // Set only the 'posts' array from the response
     }
     catch (error) {
       console.error('Error fetching search results:', error)
-      setResults([])
+      setResults([]) // Clear results in case of an error
     }
   }, [debouncedQuery])
 
   useEffect(() => {
     handleSearch()
   }, [handleSearch])
-
 
   const contextValue = useMemo(() => ({
     searchTerm,
