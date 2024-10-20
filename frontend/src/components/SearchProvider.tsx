@@ -3,8 +3,9 @@ import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import useDebouncedValue from '../hooks/useDebouncedValue'
 import type { Post } from '../types'
+import { env } from '@/env'
 
-const apiUrl = import.meta.env.API_URL || 'http://localhost:3000'
+const apiUrl = env.VITE_API_URL
 
 interface SearchContextType {
   searchTerm: string
