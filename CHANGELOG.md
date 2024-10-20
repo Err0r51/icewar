@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/Err0r51/icewar/compare/v1.4.0...v1.4.1) (2024-10-20)
+
+
+### Bug Fixes
+
+* **modules:** :wrench:  fixed prisma module load ([dab152c](https://github.com/Err0r51/icewar/commit/dab152cd78dcd9faf78b050c47195e274c521a51))
+* **prisma:** :construction:  fuck prisma with monorepo ([26de18b](https://github.com/Err0r51/icewar/commit/26de18b4cf48d5d2329b791fb27fe3464c710cb5))
+
 # [1.4.0](https://github.com/Err0r51/icewar/compare/v1.3.0...v1.4.0) (2024-10-01)
 
 
