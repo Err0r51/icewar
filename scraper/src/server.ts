@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import dotenv from 'dotenv'
-import { Post, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@icewar/prisma'
+ 
+import type { Post } from '@icewar/prisma'
 import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit';
@@ -10,9 +12,10 @@ import { FeedRequestQuery, ISearchQueryString } from './types.js'
 
 dotenv.config()
 
+
 const allowedOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'; // Fallback to localhost if not provided
 
-
+// TODO: no two prisma instances
 const prisma = new PrismaClient()
 
 const PORT = process.env.PORT || 3000

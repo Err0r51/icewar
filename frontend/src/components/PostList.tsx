@@ -3,16 +3,17 @@ import axios from 'axios'
 import useSearch from './useSearch'
 import { columns } from './post-table/columns'
 import { DataTable } from './post-table/data-table'
+import { env } from '@/env'
 import type { Post } from '@/types'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 
-const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const apiUrl = env.VITE_API_URL
 
 // Modify the fetchPosts function to return totalPosts along with the posts
 async function fetchPosts(pageIndex: number, pageSize: number): Promise<{ posts: Post[], totalPosts: number }> {
   const offset = pageIndex * pageSize
-  const response = await axios.get(`${apiUrl}/feed`, {
+  const response = await axios.get<{ posts: Post[], totalPosts: number }>(`${apiUrl}/feed`, {
     params: { limit: pageSize, offset },
   })
   const { posts, totalPosts } = response.data

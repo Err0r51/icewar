@@ -1,4 +1,5 @@
 packages:
-  - 'frontend'
-  - 'scraper'
-  - 'prisma'
+  - frontend
+  - scraper
+  - prisma
+  - crawler

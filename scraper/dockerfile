@@ -4,30 +4,52 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-# Build stage
 FROM base AS build
-COPY . /usr/src/app
 WORKDIR /usr/src/app
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm run prisma
+COPY . . 
+# Install all dependencies, including devDependencies
+RUN pnpm install --frozen-lockfile
+
+# Generate Prisma client
+RUN pnpm run --filter "@icewar/prisma" generate 
+
+RUN pnpm run --filter "@icewar/prisma" build
+
 RUN pnpm run --filter "@icewar/scraper" build
-RUN pnpm deploy --filter=@icewar/scraper --prod /prod/scraper
 
-# Production stage
-FROM node:20.11.0-alpine AS production
+# RUN pnpm deploy --config.shamefully-hoist=true --config.shared-workspace-lockfile=false --filter "@icewar/scraper" --prod /prod/app1
 
+FROM base AS production
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app/scraper/dist ./dist
+COPY --from=build /usr/src/app/scraper/node_modules ./node_modules
+ENV NODE_ENV=production
 ENV ADDRESS=0.0.0.0
 ENV PORT=3000
-ENV NODE_ENV=production
 
-WORKDIR /app
+EXPOSE 3000
+CMD ["node", "dist/index.mjs"]
 
-# Copy the production build from the build stage
-COPY --from=build /prod/scraper /app
-# Ensure node_modules are available if necessary
-COPY --from=build /usr/src/app/node_modules /app/node_modules
 
-RUN ls -la /app/dist
+# # Stage 3: Production-ready image with only necessary files
+# FROM base AS production
+# WORKDIR /usr/src/app
 
-# Start the application
-CMD ["node", "dist/index.js"]
+# # Copy production dependencies from prod-deps stage
+# COPY --from=prod-deps /usr/src/app/node_modules /usr/src/app/node_modules
+
+# # Copy built files from the build stage
+# COPY --from=build /usr/src/app/scraper/dist /usr/src/app/dist
+
+
+# # Set environment variables
+# ENV NODE_ENV=production
+# ENV ADDRESS=0.0.0.0
+# ENV PORT=3000
+
+# # Expose the necessary port
+# EXPOSE 3000
+
+
+# # Start the scraper application
+# CMD ["node", "dist/index.mjs"]

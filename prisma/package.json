@@ -1,0 +1,27 @@
+{
+  "name": "@icewar/prisma",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.7.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "generate": "prisma generate",
+    "build": "tsc"
+  },
+  "prisma": {
+    "schema": "schema.prisma",
+    "seed": "tsx ../scraper/src/utils/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "prisma": "^5.20.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,5 +1,3 @@
-import type { Post } from '@prisma/client'
+import type { Post } from '@icewar/prisma'
 
 export type { Post }
-
-

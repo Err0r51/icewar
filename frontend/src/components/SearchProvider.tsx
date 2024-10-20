@@ -3,8 +3,9 @@ import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 import useDebouncedValue from '../hooks/useDebouncedValue'
 import type { Post } from '../types'
+import { env } from '@/env'
 
-const apiUrl = import.meta.env.API_URL || 'http://localhost:3000'
+const apiUrl = env.VITE_API_URL
 
 interface SearchContextType {
   searchTerm: string
@@ -27,21 +28,20 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      const response = await axios.get(`${apiUrl}/search`, {
+      const response = await axios.get<{ posts: Post[] }>(`${apiUrl}/search`, {
         params: { query: debouncedQuery },
       })
-      setResults(response.data)
+      setResults(response.data.posts) // Set only the 'posts' array from the response
     }
     catch (error) {
       console.error('Error fetching search results:', error)
-      setResults([])
+      setResults([]) // Clear results in case of an error
     }
   }, [debouncedQuery])
 
   useEffect(() => {
     handleSearch()
   }, [handleSearch])
-
 
   const contextValue = useMemo(() => ({
     searchTerm,

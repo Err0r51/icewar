@@ -1,0 +1,24 @@
+{
+  "name": "@icewar/crawler",
+  "type": "module",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs"
+  },
+  "dependencies": {
+    "@icewar/prisma": "workspace:*",
+    "@t3-oss/env-core": "^0.11.1",
+    "axios": "^1.7.3",
+    "cheerio": "^1.0.0-rc.12",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nitropack": "latest"
+  }
+}
