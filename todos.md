@@ -19,3 +19,14 @@
 - [ ] Staging Server with Prisma Seed
 - [ ] Production Server with TLS and Domain
 - [ ] Migrate ENV
+
+# Env Needed
+## Prisma
+- [ ] DATABASE_URL (including password)
+
+## Frontend
+- API URL
+
+## Backend
+- CORS_ORIGIN
+
