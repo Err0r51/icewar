@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/Err0r51/icewar/compare/v1.4.1...v1.4.2) (2024-10-24)
+
+
+### Bug Fixes
+
+* **compose:** :green_heart:  fixed compose build deps ([53b319e](https://github.com/Err0r51/icewar/commit/53b319e11c401459a9c54fb64b5e49746c78ce9d))
+
 ## [1.4.1](https://github.com/Err0r51/icewar/compare/v1.4.0...v1.4.1) (2024-10-20)
 
 
