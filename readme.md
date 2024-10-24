@@ -10,7 +10,7 @@ Icewar is a monorepo project that includes multiple components with a frontend, 
 
 ## Project Structure
 
-#ToDos
+# ToDos
 
 ## ToDos for the DevOps
 - [ ] feature flags

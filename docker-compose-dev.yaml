@@ -21,8 +21,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-    # env_file:
-    #   - ./crawler/.env
     environment:
       DATABASE_URL: ${DATABASE_URL}
       CORS_ORIGIN: ${CORS_ORIGIN}
@@ -36,8 +34,6 @@ services:
       - "3001:80"
     depends_on:
       - crawler
-    # env_file:
-    #   - ./frontend/.env
     environment:
       VITE_API_URL: ${VITE_API_URL}
 

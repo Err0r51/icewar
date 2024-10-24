@@ -2,13 +2,11 @@ services:
   crawler:
     build: 
       context: .
-
-      dockerfile: ./scraper/Dockerfile 
+      dockerfile: ./crawler/Dockerfile 
     restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:
-      - db
     environment:
       DATABASE_URL: ${DATABASE_URL}
       CORS_ORIGIN: ${CORS_ORIGIN}
@@ -19,7 +17,7 @@ services:
       dockerfile: ./frontend/Dockerfile 
     restart: unless-stopped
     ports:
-      - "3001:80"
+      - "80:80"
     depends_on:
       - crawler
     environment:
