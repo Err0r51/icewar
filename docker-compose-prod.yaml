@@ -21,4 +21,6 @@ services:
       - crawler
     environment:
       CRAWLER_URL: ${CRAWLER_URL}
+      DATABASE_URL: ${DATABASE_URL}
+
 
