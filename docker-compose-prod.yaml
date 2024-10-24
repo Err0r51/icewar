@@ -11,6 +11,7 @@ services:
       - db
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      CORS_ORIGIN: ${CORS_ORIGIN}
 
   frontend:
     build: 
