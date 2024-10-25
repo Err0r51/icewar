@@ -22,7 +22,7 @@ services:
     depends_on:
       - crawler
     environment:
-      CRAWLER_URL: ${CRAWLER_URL}
+      VITE_API_URL: ${VITE_API_URL}
       # DATABASE_URL: ${DATABASE_URL}
 
 
