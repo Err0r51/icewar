@@ -3,6 +3,8 @@ import SearchBar from './components/SearchBar'
 import SearchProvider from './components/SearchProvider'
 
 function App() {
+  console.log(import.meta.env)
+
   return (
     <SearchProvider>
       <div className="flex-auto items-center">
