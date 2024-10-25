@@ -18,7 +18,7 @@ services:
         BUILD_DATABASE_URL: ${BUILD_DATABASE_URL}
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - crawler
     environment:
