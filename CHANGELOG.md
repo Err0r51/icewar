@@ -1,3 +1,10 @@
+## [1.4.9](https://github.com/Err0r51/icewar/compare/v1.4.8...v1.4.9) (2024-10-25)
+
+
+### Bug Fixes
+
+* **env:** :green_heart:  added also to compose ([c8e2c3f](https://github.com/Err0r51/icewar/commit/c8e2c3f4f1978de5b0599dca08da6dae32179088))
+
 ## [1.4.8](https://github.com/Err0r51/icewar/compare/v1.4.7...v1.4.8) (2024-10-25)
 
 
