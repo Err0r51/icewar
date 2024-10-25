@@ -17,6 +17,7 @@ services:
       dockerfile: ./frontend/Dockerfile
       args:
         BUILD_DATABASE_URL: ${BUILD_DATABASE_URL}
+        VITE_API_URL: ${VITE_API_URL}
 
     restart: unless-stopped
     ports:
