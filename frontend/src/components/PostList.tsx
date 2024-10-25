@@ -8,9 +8,9 @@ import type { Post } from '@/types'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 
+
 const apiUrl = env.VITE_API_URL
 
-console.log(import.meta.env)
 
 // Modify the fetchPosts function to return totalPosts along with the posts
 async function fetchPosts(pageIndex: number, pageSize: number): Promise<{ posts: Post[], totalPosts: number }> {
