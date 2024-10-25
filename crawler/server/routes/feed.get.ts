@@ -41,7 +41,8 @@ export default defineEventHandler(async (event) => {
       offset: paginationOffset,
     }
   }
-  catch {
+  catch (error) {
+    console.error(error)
     return sendError(event, createError({ statusCode: 503, statusMessage: 'Failed to fetch posts' }), true)
   }
 })
