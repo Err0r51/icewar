@@ -1,3 +1,10 @@
+## [1.4.7](https://github.com/Err0r51/icewar/compare/v1.4.6...v1.4.7) (2024-10-25)
+
+
+### Bug Fixes
+
+* **env:** :construction:  checking env for frontend build ([8471794](https://github.com/Err0r51/icewar/commit/8471794f65e0102367df10fd654af33ba642cdfd))
+
 ## [1.4.6](https://github.com/Err0r51/icewar/compare/v1.4.5...v1.4.6) (2024-10-25)
 
 
