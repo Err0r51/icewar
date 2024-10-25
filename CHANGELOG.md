@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/Err0r51/icewar/compare/v1.4.3...v1.4.4) (2024-10-25)
+
+
+### Bug Fixes
+
+* **dockerfile:** :green_heart:  added build for prisma in frontend ([96710c7](https://github.com/Err0r51/icewar/commit/96710c760dc1b50709e80819159c229bbded90c0))
+
 ## [1.4.3](https://github.com/Err0r51/icewar/compare/v1.4.2...v1.4.3) (2024-10-24)
 
 
