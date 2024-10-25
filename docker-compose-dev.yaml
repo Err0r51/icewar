@@ -28,7 +28,9 @@ services:
   frontend:
     build: 
       context: .
-      dockerfile: ./frontend/Dockerfile 
+      dockerfile: ./frontend/Dockerfile
+      args:
+        BUILD_DATABASE_URL: ${BUILD_DATABASE_URL}
     restart: unless-stopped
     ports:
       - "3001:80"

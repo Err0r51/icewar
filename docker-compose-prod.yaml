@@ -1,4 +1,5 @@
 services:
+
   crawler:
     build: 
       context: .
@@ -16,6 +17,7 @@ services:
       dockerfile: ./frontend/Dockerfile
       args:
         BUILD_DATABASE_URL: ${BUILD_DATABASE_URL}
+
     restart: unless-stopped
     ports:
       - "3821:80"
