@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/Err0r51/icewar/compare/v1.4.4...v1.4.5) (2024-10-25)
+
+
+### Bug Fixes
+
+* **ports:** :alembic:  ports changing for coolify ([4e6224f](https://github.com/Err0r51/icewar/commit/4e6224f382e1c168ee8cda2fde0f385f83c49f34))
+
 ## [1.4.4](https://github.com/Err0r51/icewar/compare/v1.4.3...v1.4.4) (2024-10-25)
 
 
