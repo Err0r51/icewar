@@ -6,6 +6,8 @@ RUN corepack enable
 
 # Stage 1: Build the app
 FROM base AS build
+ARG BUILD_DATABASE_URL
+ENV DATABASE_URL $BUILD_DATABASE_URL
 WORKDIR /app
 COPY . .
 
