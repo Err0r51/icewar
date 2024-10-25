@@ -1,3 +1,11 @@
+## [1.4.8](https://github.com/Err0r51/icewar/compare/v1.4.7...v1.4.8) (2024-10-25)
+
+
+### Bug Fixes
+
+* **env:** :construction:  env before call ([cfa77a9](https://github.com/Err0r51/icewar/commit/cfa77a96b64d0b0fa0d9ee5f34c0e8e09c531f03))
+* **env:** :green_heart:  added variables at build time ([71d02fe](https://github.com/Err0r51/icewar/commit/71d02fe62de5fb2441df8d8ed81a7cef7e837895))
+
 ## [1.4.7](https://github.com/Err0r51/icewar/compare/v1.4.6...v1.4.7) (2024-10-25)
 
 
