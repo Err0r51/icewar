@@ -12,7 +12,7 @@ COPY . .
 # Install dependencies
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run --filter "@icewar/prisma" generate
-
+RUN pnpm run --filter "@icewar/prisma" build
 
 # Build the app for production
 RUN pnpm run --filter "@icewar/frontend" build
