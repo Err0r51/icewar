@@ -23,6 +23,5 @@ services:
       - crawler
     environment:
       VITE_API_URL: ${VITE_API_URL}
-      # DATABASE_URL: ${DATABASE_URL}
 
 
