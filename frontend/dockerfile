@@ -27,6 +27,7 @@ COPY --from=build /app/frontend/dist /usr/share/nginx/html
 
 # Expose the default nginx port
 EXPOSE 80
+ENV NODE_ENV production
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
