@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/Err0r51/icewar/compare/v1.4.5...v1.4.6) (2024-10-25)
+
+
+### Bug Fixes
+
+* **env:** :green_heart:  fixed env varibale ([3e1a65c](https://github.com/Err0r51/icewar/commit/3e1a65c9e9b0f92d576684b87456eb6c67285c44))
+
 ## [1.4.5](https://github.com/Err0r51/icewar/compare/v1.4.4...v1.4.5) (2024-10-25)
 
 
