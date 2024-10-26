@@ -8,6 +8,7 @@ export const env = createEnv({
     // POSTGRES_PASSWORD: z.string().min(1),
     // VITE_API_URL: z.string().url(),
     CORS_ORIGIN: z.string().min(1),
+    CORS_ORIGIN_CUSTOM_DOMAIN: z.string().min(1),
     // COOLIFY_POSTGRES_USER: z.string().min(1),
     // COOLIFY_POSTGRES_PASSWORD: z.string().min(1),
     // COOLIFY_DATABASE_NAME: z.string().min(1),

@@ -8,7 +8,7 @@ export default defineEventHandler((event) => {
     }
     setResponseHeaders(event, {
         "Access-Control-Allow-Methods": "GET",
-        "Access-Control-Allow-Origin": env.CORS_ORIGIN,
+        "Access-Control-Allow-Origin": [env.CORS_ORIGIN, env.CORS_ORIGIN_CUSTOM_DOMAIN],
         'Access-Control-Allow-Credentials': 'true',
         // "Access-Control-Allow-Headers": '*',
         // "Access-Control-Expose-Headers": '*'
