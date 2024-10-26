@@ -21,7 +21,7 @@ services:
 
     restart: unless-stopped
     ports:
-      - "3821:80"
+      - "80:80"
     depends_on:
       - crawler
     environment:
