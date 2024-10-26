@@ -1,3 +1,10 @@
+## [1.4.10](https://github.com/Err0r51/icewar/compare/v1.4.9...v1.4.10) (2024-10-26)
+
+
+### Bug Fixes
+
+* **ports:** :green_heart:  changed ports for internal coolify mapping ([f50b602](https://github.com/Err0r51/icewar/commit/f50b602f76a12bbef4c3af238f1b7b8de2c1eb9e))
+
 ## [1.4.9](https://github.com/Err0r51/icewar/compare/v1.4.8...v1.4.9) (2024-10-25)
 
 
