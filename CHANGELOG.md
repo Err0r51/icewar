@@ -1,3 +1,10 @@
+## [1.4.13](https://github.com/Err0r51/icewar/compare/v1.4.12...v1.4.13) (2024-10-29)
+
+
+### Bug Fixes
+
+* **search-object:** :bug:  fixed the search endpoint return structure ([2ca7570](https://github.com/Err0r51/icewar/commit/2ca7570e94b037f249a99cdd95a831c6a4d96827))
+
 ## [1.4.12](https://github.com/Err0r51/icewar/compare/v1.4.11...v1.4.12) (2024-10-29)
 
 
