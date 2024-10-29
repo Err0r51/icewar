@@ -1,3 +1,10 @@
+## [1.4.11](https://github.com/Err0r51/icewar/compare/v1.4.10...v1.4.11) (2024-10-29)
+
+
+### Bug Fixes
+
+* **CORS:** :bug:  fixed cors string ([cf2eaf1](https://github.com/Err0r51/icewar/commit/cf2eaf1bb7bc44d2c905c678fef4b153b2fb4258))
+
 ## [1.4.10](https://github.com/Err0r51/icewar/compare/v1.4.9...v1.4.10) (2024-10-26)
 
 
