@@ -1,3 +1,10 @@
+## [1.4.12](https://github.com/Err0r51/icewar/compare/v1.4.11...v1.4.12) (2024-10-29)
+
+
+### Bug Fixes
+
+* **cors:** :bug:  proper cors fallback ([90df74d](https://github.com/Err0r51/icewar/commit/90df74d86ae35147ef4b40b580ab27225cdffe92))
+
 ## [1.4.11](https://github.com/Err0r51/icewar/compare/v1.4.10...v1.4.11) (2024-10-29)
 
 
