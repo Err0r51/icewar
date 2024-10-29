@@ -31,7 +31,7 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
       const response = await axios.get<{ posts: Post[] }>(`${apiUrl}/search`, {
         params: { query: debouncedQuery },
       })
-      setResults(response.data.posts) // Set only the 'posts' array from the response
+      setResults(response.data.posts || []) // Set only the 'posts' array from the response
     }
     catch (error) {
       console.error('Error fetching search results:', error)

@@ -30,5 +30,5 @@ export default eventHandler(async (event) => { // arrow async function
   })
 
   // Return posts as the response
-  return posts
+  return { posts }
 })
