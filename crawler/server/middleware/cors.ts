@@ -1,11 +1,15 @@
 import { env } from '~~/env'
 
-export default defineEventHandler((event) => {
-  const requestOrigin = event.node.req.headers.origin
-  const allowedOrigins = [env.CORS_ORIGIN, env.CORS_ORIGIN_CUSTOM_DOMAIN]
+const corsConfig = {
+  origins: [env.CORS_ORIGIN, env.CORS_ORIGIN_CUSTOM_DOMAIN],
+  default: env.CORS_ORIGIN, // Fallback origin if request origin is not allowed
+}
 
-  // Check if the request's origin is in the list of allowed origins
-  const allowOrigin = allowedOrigins.includes(requestOrigin) ? requestOrigin : ''
+export default defineEventHandler((event) => {
+  const requestOrigin = event.node.req.headers.origin?.toLowerCase()
+
+  // Determine the allowed origin for the response header
+  const allowOrigin = corsConfig.origins.includes(requestOrigin) ? requestOrigin : corsConfig.default
 
   if (event.method === 'OPTIONS') {
     event.node.res.statusCode = 204
@@ -13,11 +17,11 @@ export default defineEventHandler((event) => {
     return 'OK'
   }
 
+  // Set CORS headers based on the determined origin
   setResponseHeaders(event, {
     'Access-Control-Allow-Methods': 'GET',
     'Access-Control-Allow-Origin': allowOrigin,
     'Access-Control-Allow-Credentials': 'true',
-    // "Access-Control-Allow-Headers": '*',
-    // "Access-Control-Expose-Headers": '*'
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
   })
 })
