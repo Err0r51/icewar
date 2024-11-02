@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/Err0r51/icewar/compare/v1.4.13...v1.5.0) (2024-11-02)
+
+
+### Features
+
+* **rate-limiting:** :sparkles:  added ratelimiting middleware + handling ([4dcc8df](https://github.com/Err0r51/icewar/commit/4dcc8dfc40bdc36a2f5db528444aa4d7467397ae))
+
 ## [1.4.13](https://github.com/Err0r51/icewar/compare/v1.4.12...v1.4.13) (2024-10-29)
 
 
