@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import type { AxiosError } from 'axios'
 import useSearch from './useSearch'
 import { columns } from './post-table/columns'
 import { DataTable } from './post-table/data-table'
@@ -8,26 +9,35 @@ import type { Post } from '@/types'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 
-
 const apiUrl = env.VITE_API_URL
-
 
 // Modify the fetchPosts function to return totalPosts along with the posts
 async function fetchPosts(pageIndex: number, pageSize: number): Promise<{ posts: Post[], totalPosts: number }> {
   const offset = pageIndex * pageSize
-  const response = await axios.get<{ posts: Post[], totalPosts: number }>(`${apiUrl}/feed`, {
-    params: { limit: pageSize, offset },
-  })
-  const { posts, totalPosts } = response.data
-  return { posts, totalPosts }
+  try {
+    const response = await axios.get<{ posts: Post[], totalPosts: number }>(`${apiUrl}/feed`, {
+      params: { limit: pageSize, offset },
+    })
+
+    const { posts, totalPosts } = response.data
+    return { posts, totalPosts }
+  }
+  catch (error) {
+    const axiosError = error as AxiosError
+    if (axiosError.response && axiosError.response.status === 429) {
+      console.warn('Rate limit reached, returning an empty list')
+      return { posts: [], totalPosts: 0 } // Return an empty list if rate-limited
+    }
+    throw error // Rethrow any other errors
+  }
 }
 
 export default function PostList() {
-  const { results, searchTerm } = useSearch() // Get search term and results from context
-  const [data, setData] = useState<Post[]>([]) // Data from the API
-  const [pageIndex, setPageIndex] = useState(0) // Current page index
-  const [pageSize] = useState(10) // Rows per page
-  const [pageCount, setPageCount] = useState(0) // Total number of pages
+  const { results, searchTerm } = useSearch() 
+  const [data, setData] = useState<Post[]>([]) 
+  const [pageIndex, setPageIndex] = useState(0) 
+  const [pageSize] = useState(10) 
+  const [pageCount, setPageCount] = useState(0)
   const [loading, setLoading] = useState(false)
   const [freeArticlesOnly, setFreeArticlesOnly] = useState(false)
 
